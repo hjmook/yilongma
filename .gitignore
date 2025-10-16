@@ -416,3 +416,10 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Chat logs
+./chat_log_*.json
+model/*
+!model/final_combined_v11
+
+.DS_Store
