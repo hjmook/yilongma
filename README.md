@@ -110,8 +110,8 @@ User Query
 #### 1. Query Analyzer (Base Model)
 - Uses the **unmodified base model** (no fine-tuning) to make binary decisions
 - **Decision Logic:**
-  - **RETRIEVE:** Factual questions (what/when/how many), questions about companies (Tesla, SpaceX, DOGE), events, or ambiguous terms
-  - **NO_RETRIEVE:** Greetings, personal philosophy, subjective opinions
+  - **RETRIEVE:** Factual questions or remarks (what/when/how many), questions about companies (Tesla, SpaceX, DOGE), events
+  - **NO_RETRIEVE:** Greetings, personal philosophy
 - **Output:** Binary flag + optionally rewritten query for better retrieval
 
 **Rationale:** The base model is unbiased and makes decisions based on semantic understanding rather than learned biases from fine-tuning.
@@ -129,8 +129,6 @@ User Query
 - **Knowledge Conflict Handling:** Prompt engineering instructs the model to prioritize retrieved context over potentially outdated trained knowledge
   - System message contains explicit instructions: "If your memory conflicts with the provided context, trust the context"
   - This mechanism is designed to override the model's learned but outdated facts
-- Qualitative testing showed the fine-tuned model sometimes contradicted retrieved facts even with these instructions, suggesting the learned knowledge can be difficult to override
-  - This is an ongoing area for improvement (see Future Work)
 
 ---
 
@@ -148,7 +146,6 @@ Phase 2 LoRA Adapter (quality enhancement, trainable)
 
 **Benefits:**
 - Reduced memory footprint (two small adapters instead of merged weights)
-- Ability to independently disable or evaluate each phase
 - Maintains computational efficiency during inference
 
 ---
