@@ -423,3 +423,6 @@ model/*
 !model/final_combined_v11
 
 .DS_Store
+
+# Python venv
+.*venv
