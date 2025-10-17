@@ -426,3 +426,12 @@ model/*
 
 # Python venv
 .*venv
+
+# Old 
+old_scripts/*
+
+# Chat logs
+chat_log_*
+
+# Tests
+*/test_*

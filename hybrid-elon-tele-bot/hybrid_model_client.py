@@ -15,13 +15,13 @@ logger = logging.getLogger(__name__)
 
 
 class HybridModelClient:
-    """Client that routes to fast or detailed server based on MODE (single-user)."""
+    """Client that routes to fast or thinking server based on MODE (single-user)."""
 
     def __init__(self):
         # Default URL can be overridden after mode selection via set_endpoint
         self.fast_url = os.environ.get("FAST_SERVER_URL", "http://localhost:5001/predict")
-        self.detailed_url = os.environ.get("DETAILED_SERVER_URL", "http://localhost:5055/predict")
-        self._current_url = os.environ.get("HYBRID_MODEL_URL", self.detailed_url)
+        self.thinking_url = os.environ.get("THINKING_SERVER_URL", "http://localhost:5055/predict")
+        self._current_url = os.environ.get("HYBRID_MODEL_URL", self.thinking_url)
         logger.info(f"HybridModelClient mode={MODE} endpoint={self._current_url}")
 
     def get_url(self) -> str:

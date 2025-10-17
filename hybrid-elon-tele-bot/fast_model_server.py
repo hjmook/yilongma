@@ -40,6 +40,7 @@ logger = logging.getLogger(__name__)
 model = None
 tokenizer = None
 rag_retriever = None
+query_classifier = None
 chat_histories = {}
 ready = False
 
@@ -52,7 +53,65 @@ else:
     device = "cpu"
 
 
+# --------------------------
+# RAG Query Classifier (ported from original model_server.py)
+# --------------------------
+class QueryClassifier:
+    """Classifies queries to determine RAG usage strategy"""
+    
+    @staticmethod
+    def classify_query(query: str) -> str:
+        query_lower = query.lower()
+        
+        factual_recent_indicators = [
+            "how many", "when did", "latest", "recent", "currently",
+            "last quarter", "this year", "update on", "news about",
+            "what happened", "status of", "just announced", "today",
+            "this week", "this month", "new", "upcoming"
+        ]
+        
+        factual_domain_indicators = [
+            "why", "how does", "explain", "what's your approach",
+            "philosophy on", "thoughts on", "how would you",
+            "strategy for", "plan for", "vision for"
+        ]
+        
+        conversational_indicators = [
+            "how are you", "what's up", "tell me about yourself",
+            "do you like", "are you", "can you", "will you",
+            "hello", "hi", "hey", "good morning"
+        ]
+        
+        recent_score = sum(ind in query_lower for ind in factual_recent_indicators)
+        domain_score = sum(ind in query_lower for ind in factual_domain_indicators)
+        conv_score = sum(ind in query_lower for ind in conversational_indicators)
+        
+        if recent_score > 0:
+            return 'factual_recent'
+        elif conv_score > 0:
+            return 'conversational'
+        elif domain_score > 0:
+            return 'factual_domain'
+        else:
+            return 'conversational' if len(query.split()) < 5 else 'factual_domain'
+    
+    @staticmethod
+    def assess_complexity(query: str) -> str:
+        word_count = len(query.split())
+        has_multiple_questions = query.count('?') > 1
+        has_conjunctions = any(w in query.lower() for w in ['and', 'but', 'also', 'plus', 'additionally'])
+        
+        if word_count < 8 and not has_multiple_questions:
+            return 'simple'
+        elif word_count > 20 or has_multiple_questions or has_conjunctions:
+            return 'complex'
+        else:
+            return 'medium'
+
+
 class RAGRetriever:
+    """Handles adaptive retrieval from ChromaDB"""
+    
     def __init__(self, chroma_path: str):
         self.collection = None
         if not os.path.exists(chroma_path):
@@ -69,30 +128,40 @@ class RAGRetriever:
     def is_available(self) -> bool:
         return self.collection is not None and self.collection.count() > 0
 
-    def retrieve_context(self, query: str, n_results: int = 3) -> List[Dict]:
+    def retrieve_context(self, query: str, complexity: str) -> List[Dict]:
+        """Retrieve context with complexity-based chunk count"""
         if not self.is_available():
             return []
         try:
+            n_results = {'simple': 1, 'medium': 3, 'complex': 5}.get(complexity, 2)
             results = self.collection.query(query_texts=[query], n_results=n_results)
-            if not results or not results.get('documents'):
-                return []
-            formatted = []
-            docs = results['documents'][0]
-            metadatas = results['metadatas'][0]
-            for doc, meta in zip(docs, metadatas):
-                formatted.append({
-                    'text': doc,
-                    'date': meta.get('date', 'Unknown'),
-                    'source': meta.get('source', 'Unknown'),
-                })
-            return formatted
+            return self._format_results(results)
         except Exception as e:
             logger.error(f"Retrieval error: {e}")
             return []
+    
+    def _format_results(self, results: Dict) -> List[Dict]:
+        if not results or not results.get('documents'):
+            return []
+        
+        formatted = []
+        docs = results['documents'][0]
+        metadatas = results['metadatas'][0]
+        distances = results.get('distances', [[]])[0]
+        
+        for i, (doc, meta) in enumerate(zip(docs, metadatas)):
+            formatted.append({
+                'text': doc,
+                'date': meta.get('date', 'Unknown'),
+                'source': meta.get('source', 'Unknown'),
+                'distance': distances[i] if i < len(distances) else 1.0
+            })
+        
+        return formatted
 
 
 def load_model():
-    global model, tokenizer, rag_retriever, ready
+    global model, tokenizer, rag_retriever, query_classifier, ready
     tokenizer = AutoTokenizer.from_pretrained(ADAPTER_PATH)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
@@ -126,6 +195,7 @@ def load_model():
     model.eval()
 
     rag_retriever = RAGRetriever(CHROMA_DB_PATH)
+    query_classifier = QueryClassifier()
     ready = True
 
 
@@ -173,14 +243,27 @@ def predict():
         user_id = data.get('user_id', 'default')
         use_rag = data.get('use_rag', True)
 
+        logger.info(f"Received request from user {user_id}: {user_input[:50]}...")
+
         if user_id not in chat_histories:
             chat_histories[user_id] = []
         chat_history = chat_histories[user_id]
 
+        # Smart RAG decision using the original rule-based classifier
+        query_type = 'conversational'
+        complexity = 'simple'
         retrieved_chunks = []
+        
         if use_rag and rag_retriever and rag_retriever.is_available():
-            retrieved_chunks = rag_retriever.retrieve_context(user_input, n_results=3)
+            query_type = query_classifier.classify_query(user_input)
+            complexity = query_classifier.assess_complexity(user_input)
+            
+            # Only retrieve for factual queries like the original model_server.py
+            if query_type in ['factual_recent', 'factual_domain']:
+                retrieved_chunks = rag_retriever.retrieve_context(user_input, complexity)
+                logger.info(f"RAG: {len(retrieved_chunks)} chunks | {query_type} | {complexity}")
 
+        # Format prompt with RAG context (original style)
         if not retrieved_chunks:
             messages = [
                 {"role": "system", "content": SYSTEM_MSG},
@@ -188,14 +271,22 @@ def predict():
                 {"role": "user", "content": user_input},
             ]
         else:
-            context_block = "=== CURRENT FACTS ===\n\n"
-            for i, ch in enumerate(retrieved_chunks, 1):
-                context_block += f"[SOURCE {i}]\n{ch['text']}\n"
-                if ch.get('date') != 'Unknown':
-                    context_block += f"Date: {ch['date']}\n"
+            # Original style context formatting
+            context_block = "=== CURRENT FACTS (Use these in your response) ===\n\n"
+            for i, chunk in enumerate(retrieved_chunks, 1):
+                context_block += f"[SOURCE {i}]\n"
+                context_block += f"{chunk['text']}\n"
+                if chunk.get('date') != 'Unknown':
+                    context_block += f"Date: {chunk['date']}\n"
                 context_block += "\n"
-            context_block += "=== END ===\n\n"
-            enhanced_system = f"{SYSTEM_MSG}\n\n{context_block}\nUse these facts naturally."
+            context_block += "=== END CURRENT FACTS ===\n\n"
+            
+            enhanced_system = f"""{SYSTEM_MSG}
+
+{context_block}
+
+IMPORTANT: Use the facts above naturally in your response as Elon would, without mentioning you're using retrieved information."""
+            
             messages = [
                 {"role": "system", "content": enhanced_system},
                 *chat_history,
@@ -204,6 +295,7 @@ def predict():
 
         response_text = generate_response(messages)
 
+        # Update chat history (keep last 10 exchanges like original)
         chat_history.append({"role": "user", "content": user_input})
         chat_history.append({"role": "assistant", "content": response_text})
         if len(chat_history) > 20:
@@ -213,7 +305,7 @@ def predict():
 
         return jsonify({
             "output": response_text,
-            "query_type": "legacy",
+            "query_type": query_type,
             "rag_used": len(retrieved_chunks) > 0,
             "num_chunks": len(retrieved_chunks),
         })

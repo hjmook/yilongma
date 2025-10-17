@@ -49,9 +49,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception:
         pass
 
-    keyboard = [["elon-fast", "elon-detailed"]]
+    keyboard = [["elon-fast", "elon-thinking"]]
     await update.message.reply_text(
-        "Choose a mode to begin:\n- ⚡ elon-fast: faster, may be less factually correct\n- 🧐 elon-detailed: slower, may be more factually correct\n\nYou can /stop when you're done.",
+        "Choose a mode to begin:\n- ⚡ elon-fast: faster, may be less factually correct\n- 🧐 elon-thinking: slower, may be more factually correct\n\nYou can /stop when you're done.",
         reply_markup=ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True),
     )
     return CHOOSE_MODE
@@ -59,8 +59,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def choose_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     choice = (update.message.text or "").strip().lower()
-    if choice not in ("elon-fast", "elon-detailed"):
-        await update.message.reply_text("Please choose 'elon-fast' or 'elon-detailed'.")
+    if choice not in ("elon-fast", "elon-thinking"):
+        await update.message.reply_text("Please choose 'elon-fast' or 'elon-thinking'.")
         return CHOOSE_MODE
 
     # Start necessary local services based on choice
@@ -85,7 +85,7 @@ async def choose_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
         os.environ["HYBRID_MODEL_URL"] = "http://localhost:5001/predict"
         client.set_endpoint("http://localhost:5001/predict")
     else:
-        # Start analyzer then detailed server
+        # Start analyzer then thinking server
         import subprocess, time, requests
         analyzer = subprocess.Popen([sys.executable, os.path.join(os.path.dirname(__file__), "analyzer_service.py")])
         for _ in range(180):
@@ -96,7 +96,7 @@ async def choose_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
             except Exception:
                 pass
             time.sleep(1)
-        server = subprocess.Popen([sys.executable, os.path.join(os.path.dirname(__file__), "detailed_model_server.py")])
+        server = subprocess.Popen([sys.executable, os.path.join(os.path.dirname(__file__), "thinking_model_server.py")])
         context.chat_data["analyzer_proc"] = analyzer
         context.chat_data["server_proc"] = server
         for _ in range(240):
@@ -158,9 +158,19 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     mode = os.environ.get("ELON_MODE", "unknown")
+    user_id = str(update.effective_user.id)
     waiting = await update.message.reply_text(
         f"⏳ Waiting for Elon to go home..."
     )
+    
+    # End chat session if using thinking mode (for comprehensive logging)
+    if mode == "elon-thinking":
+        try:
+            import requests
+            requests.post("http://localhost:5055/end_session", json={"user_id": user_id}, timeout=5)
+        except Exception as e:
+            logger.warning(f"Failed to end chat session: {e}")
+    
     # Terminate started processes
     for key in ["server_proc", "analyzer_proc"]:
         proc = context.chat_data.get(key)

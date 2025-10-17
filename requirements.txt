@@ -9,3 +9,5 @@ flask
 requests
 python-dotenv==1.0.0
 python-telegram-bot==20.7
+logging
+dspy-ai

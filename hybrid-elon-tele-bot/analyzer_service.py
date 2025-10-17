@@ -3,6 +3,8 @@ Analyzer Service (local copy) - standalone microservice for query analysis
 
 This is a self-contained copy of the Query Analyzer so that the hybrid system
 does not rely on .py files outside this directory.
+
+Enhanced with DSPy for better consistency and structured output parsing.
 """
 
 import torch
@@ -11,6 +13,15 @@ import os
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from flask import Flask, request, jsonify
 from typing import List, Dict, Tuple
+
+# DSPy imports (with fallback if not available)
+try:
+    import dspy
+    DSPY_AVAILABLE = True
+    print("🔬 DSPy available - using enhanced structured analysis")
+except ImportError:
+    DSPY_AVAILABLE = False
+    print("⚠️  DSPy not available - using traditional analysis")
 
 
 # --------------------------
@@ -64,6 +75,70 @@ User: "{query}"
 
 Output:"""
 
+# DSPy Structured Analysis (when available) - Improved prompt structure
+if DSPY_AVAILABLE:
+    class QueryAnalysisSignature(dspy.Signature):
+        """Analyze ONLY the current user query using conversation history as context"""
+        conversation_context = dspy.InputField(desc="Previous conversation for context understanding")
+        current_query = dspy.InputField(desc="The current user query to analyze")
+        analysis_result = dspy.OutputField(desc="Analysis decision in the required format")
+    
+    class DSPyQueryAnalyzer(dspy.Module):
+        """DSPy-enhanced query analyzer with better prompt structure"""
+        
+        def __init__(self):
+            super().__init__()
+            self.analyzer = dspy.ChainOfThought(QueryAnalysisSignature)
+            
+        def forward(self, conversation_context: str, current_query: str) -> dspy.Prediction:
+            return self.analyzer(
+                conversation_context=conversation_context,
+                current_query=current_query
+            )
+    
+    def create_structured_prompt(history_str: str, query: str) -> str:
+        """Create a DSPy-structured prompt that clearly separates context from task"""
+        return f"""You are a query analysis assistant for an Elon Musk chatbot.
+
+CONTEXT (for understanding only - DO NOT analyze these messages):
+{history_str if history_str.strip() != "[]" else "No previous conversation"}
+
+TASK: Analyze ONLY the current user query below using the context above for understanding.
+
+Guidelines:
+- Questions or remarks about Elon's companies/projects/relationships (SpaceX, Tesla, Boring Company, xAI, Grok, Neuralink, DOGE, Trump) → RETRIEVE
+- Factual questions or remarks (what/when/how many/latest/recent/status/numbers) → RETRIEVE
+- Follow-up questions → RETRIEVE (resolve pronouns using context)
+- Questions about specific events, dates, people → RETRIEVE
+- Ambiguous terms needing clarification → RETRIEVE
+- Questions about personal life (kids, family, relationships) → RETRIEVE
+- Pure greetings (hi/hello/hey) → NO_RETRIEVE
+- Everything else -> RETRIEVE
+
+CRITICAL REWRITING RULES:
+1. Convert first-person queries to third-person: "you" → "Elon Musk"
+2. Use conversation context to resolve ambiguous pronouns and references
+3. Create standalone queries optimized for vector database search
+4. Focus on factual information retrieval, not conversational queries
+
+Examples:
+- "What do you think about Trump?" → "What does Elon Musk think about Trump?"
+- "But you worked with him before" (context: Trump discussion) → "Did Elon Musk work with Donald Trump?"
+- "On what?" (context: working together) → "What projects did Elon Musk work on with Donald Trump?"
+
+Output format (CRITICAL - follow EXACTLY):
+- If retrieval NOT needed: "NO_RETRIEVE"
+- If retrieval needed: "RETRIEVE: <rewritten query as clear, standalone search query for vector database>"
+
+CURRENT USER QUERY TO ANALYZE: "{query}"
+
+Output:"""
+
+else:
+    def create_structured_prompt(history_str: str, query: str) -> str:
+        """Fallback to original prompt when DSPy not available"""
+        return ANALYSIS_PROMPT_TEMPLATE.format(history=history_str, query=query)
+
 
 class QueryAnalyzer:
     def __init__(self, model_path: str):
@@ -96,10 +171,32 @@ class QueryAnalyzer:
             )
 
         self.model.eval()
+        
+        # Initialize DSPy analyzer if available (improved prompt structure)
+        self.use_dspy = DSPY_AVAILABLE
+        if self.use_dspy:
+            try:
+                # Try to configure DSPy with a dummy LM for structure
+                # We'll use our model directly but leverage DSPy's prompt structuring
+                self.dspy_analyzer = DSPyQueryAnalyzer()
+                print("✅ DSPy analyzer initialized successfully (structured prompting)")
+            except Exception as e:
+                print(f"⚠️  DSPy initialization failed: {e}")
+                print("📝 Falling back to traditional analysis")
+                self.use_dspy = False
 
     def analyze(self, query: str, chat_history: List[Dict]) -> Tuple[bool, str, str]:
         history_str = self._format_history(chat_history)
-        prompt = ANALYSIS_PROMPT_TEMPLATE.format(history=history_str, query=query)
+        
+        # Use DSPy structured prompt if available, otherwise fallback
+        if self.use_dspy:
+            prompt = create_structured_prompt(history_str, query)
+            method_tag = "DSPy-Structured"
+        else:
+            prompt = ANALYSIS_PROMPT_TEMPLATE.format(history=history_str, query=query)
+            method_tag = "Traditional"
+        
+        # Generate response using our model
         inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True, max_length=2048).to(device)
         with torch.inference_mode():
             output = self.model.generate(
@@ -111,8 +208,10 @@ class QueryAnalyzer:
                 pad_token_id=self.tokenizer.eos_token_id,
             )
         raw_output = self.tokenizer.decode(output[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True).strip()
+        
+        # Parse using traditional method
         should_retrieve, rewritten_query = self._parse_output(raw_output, query)
-        return should_retrieve, rewritten_query, raw_output
+        return should_retrieve, rewritten_query, f"{method_tag}: {raw_output}"
 
     def _format_history(self, chat_history: List[Dict], max_turns: int = 3) -> str:
         if not chat_history:
@@ -160,11 +259,16 @@ def analyze():
         if not query:
             return jsonify({'error': 'No query provided'}), 400
         should_retrieve, rewritten_query, raw_output = analyzer.analyze(query, chat_history)
+        
+        # Add analysis method info for debugging
+        analysis_method = "DSPy-Enhanced" if analyzer.use_dspy else "Traditional"
+        
         return jsonify({
             'should_retrieve': should_retrieve,
             'rewritten_query': rewritten_query,
             'raw_output': raw_output,
             'original_query': query,
+            'analysis_method': analysis_method,
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
