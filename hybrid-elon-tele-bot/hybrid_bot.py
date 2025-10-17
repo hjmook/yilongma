@@ -30,6 +30,14 @@ client = HybridModelClient()
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # If already in an active session (mode selected and ready), ignore /start
+    if context.user_data.get("ready_since") is not None:
+        await update.message.reply_text("Already chatting! Use /stop to end the conversation first.")
+        return ConversationHandler.END
+    
+    # Clear any existing state to ensure clean start
+    context.user_data.clear()
+    
     # Welcome message
     welcome_msg = (
         "Hello! I'm Elon Musk (well, a chatbot version 😄)\n\n"
@@ -63,6 +71,10 @@ async def choose_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Please choose 'elon-fast' or 'elon-thinking'.")
         return CHOOSE_MODE
 
+    # Set flag to ignore messages during setup and record when setup started
+    context.user_data["is_setting_up"] = True
+    context.user_data["setup_start_time"] = update.message.date
+    
     # Start necessary local services based on choice
     os.environ["ELON_MODE"] = choice
     # Send waiting message first
@@ -110,6 +122,11 @@ async def choose_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
         os.environ["HYBRID_MODEL_URL"] = "http://localhost:5055/predict"
         client.set_endpoint("http://localhost:5055/predict")
 
+    # Clear setup flag and record when bot became ready
+    context.user_data["is_setting_up"] = False
+    import datetime
+    context.user_data["ready_since"] = datetime.datetime.now(datetime.timezone.utc)
+    
     # Replace waiting message with ready confirmation
     try:
         await waiting_msg.edit_text(f"✅ {choice} is ready. Type your message.")
@@ -142,8 +159,40 @@ async def health(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    message_time = update.message.date
+    
+    # Ignore messages if bot is not ready yet
+    if "ready_since" not in context.user_data:
+        return
+    
+    # Ignore messages that were sent before bot became ready
+    if message_time < context.user_data["ready_since"]:
+        logger.info(f"[Ignored] Message sent before bot was ready: {update.message.text[:50]}")
+        return
+    
+    # Ignore messages sent during ANY previous thinking period
+    if "last_thinking_end_time" in context.user_data:
+        # Check if message was sent during the last thinking period
+        if "thinking_start_time" in context.user_data:
+            thinking_start = context.user_data["thinking_start_time"]
+            thinking_end = context.user_data["last_thinking_end_time"]
+            if thinking_start <= message_time <= thinking_end:
+                logger.info(f"[Ignored] Message sent during previous thinking period: {update.message.text[:50]}")
+                return
+    
+    # If bot is currently thinking, ignore this message
+    if context.user_data.get("is_thinking", False):
+        logger.info(f"[Ignored] Message sent while bot is currently thinking: {update.message.text[:50]}")
+        return
+    
     user_message = update.message.text
     user_id = str(update.effective_user.id)
+    
+    # Set thinking flag and record when thinking started
+    context.user_data["is_thinking"] = True
+    import datetime
+    context.user_data["thinking_start_time"] = datetime.datetime.now(datetime.timezone.utc)
+    
     # Log message to terminal
     logger.info(f"[User {user_id}] {user_message}")
     thinking_msg = await update.message.reply_text("Elon is thinking 🧠...")
@@ -154,9 +203,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     except Exception:
         await update.message.reply_text(resp)
     logger.info(f"[Elon] {resp}")
+    
+    # Record when thinking ended and clear thinking flag
+    context.user_data["last_thinking_end_time"] = datetime.datetime.now(datetime.timezone.utc)
+    context.user_data["is_thinking"] = False
 
 
-async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     mode = os.environ.get("ELON_MODE", "unknown")
     user_id = str(update.effective_user.id)
     waiting = await update.message.reply_text(
@@ -186,10 +239,17 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 pass
         finally:
             context.chat_data[key] = None
+    
+    # Clear user state
+    context.user_data.clear()
+    
     try:
-        await waiting.edit_text("🏠 Elon has reached home")
+        await waiting.edit_text("🏠 Elon has reached home", reply_markup=ReplyKeyboardRemove())
     except Exception:
-        await update.message.reply_text("🏠 Elon has reached home")
+        await update.message.reply_text("🏠 Elon has reached home", reply_markup=ReplyKeyboardRemove())
+    
+    # End conversation handler
+    return ConversationHandler.END
 
 
 
@@ -204,7 +264,8 @@ def main():
         states={
             CHOOSE_MODE: [MessageHandler(filters.TEXT & ~filters.COMMAND, choose_mode)],
         },
-        fallbacks=[],
+        fallbacks=[CommandHandler("stop", stop), CommandHandler("start", start)],
+        allow_reentry=True,
     )
 
     application.add_handler(conv)
