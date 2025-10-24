@@ -319,15 +319,24 @@ if __name__ == "__main__":
     print("ELON MUSK KNOWLEDGE BASE - CHROMADB LOADER")
     print("=" * 70)
     
+    # Get the directory where this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Go up one level to the project root
+    project_root = os.path.dirname(script_dir)
+    
+    # Build paths relative to project root
+    kb_path = os.path.join(project_root, 'elon_musk_knowledge_base.json')
+    db_path = os.path.join(project_root, 'elon_chroma_db')
+    
     # Initialize loader
     # Set reset=True to start fresh, False to add to existing
     loader = ElonKnowledgeBaseLoader(
-        persist_directory="./elon_chroma_db",
+        persist_directory=db_path,
         reset=False  # Change to True to start fresh
     )
     
     # Load your scraped data
-    loader.load_documents('elon_musk_knowledge_base.json', skip_duplicates=True)
+    loader.load_documents(kb_path, skip_duplicates=True)
     
     # View statistics
     loader.get_stats()

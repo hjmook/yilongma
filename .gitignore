@@ -436,3 +436,6 @@ chat_log_*
 
 # Tests
 */test_*
+
+# Knowledge archive
+knowledge_base/knowledge_archive
