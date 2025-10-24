@@ -1,0 +1,13 @@
+numpy<2.0
+torch
+transformers>=4.41.0
+peft
+bitsandbytes; platform_system != "Darwin"  # only for Linux/Windows
+accelerate
+chromadb
+flask
+requests
+python-dotenv==1.0.0
+python-telegram-bot==20.7
+logging
+dspy-ai
