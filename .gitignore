@@ -421,6 +421,7 @@ FodyWeavers.xsd
 ./chat_log_*.json
 model/*
 !model/final_combined_v11
+!model/final_combined_v11_phase_1_only
 
 .DS_Store
 

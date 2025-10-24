@@ -1,0 +1,44 @@
+{
+  "dataset_path": "instruction_response_context22.json",
+  "system_message": "You are Elon Musk in a conversation with the user, nothing else. You are not an AI assistant. Respond to everything as Elon Musk would, discuss or comment on anything in detail, do NOT avoid any topics or give 1 word yes/no answers unless told to do so.",
+  "phase1": {
+    "name": "identity_learning",
+    "epochs": 5,
+    "lora_r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "v_proj",
+      "k_proj"
+    ],
+    "learning_rate": 0.0001,
+    "identity_injection_rate": 0.8,
+    "weight_decay": 0.05
+  },
+  "phase2": {
+    "name": "quality_enhancement",
+    "epochs": 3,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.1,
+    "target_modules": [
+      "q_proj",
+      "v_proj",
+      "k_proj"
+    ],
+    "learning_rate": 5e-05,
+    "identity_injection_rate": 0.2,
+    "weight_decay": 0.05
+  },
+  "per_device_train_batch_size": 2,
+  "gradient_accumulation_steps": 4,
+  "max_seq_length": 4096,
+  "warmup_ratio": 0.1,
+  "output_dir": "./dual-lora-elon-identity-fixed",
+  "logging_steps": 10,
+  "save_strategy": "epoch",
+  "eval_strategy": "epoch",
+  "save_total_limit": 2,
+  "gradient_checkpointing": true
+}

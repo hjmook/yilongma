@@ -1,0 +1,42 @@
+[
+  {
+    "phase": "identity_learning",
+    "config": {
+      "name": "identity_learning",
+      "epochs": 5,
+      "lora_r": 8,
+      "lora_alpha": 16,
+      "lora_dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "v_proj",
+        "k_proj"
+      ],
+      "learning_rate": 0.0001,
+      "identity_injection_rate": 0.8,
+      "weight_decay": 0.05
+    },
+    "train_loss": 12.162350963381291,
+    "eval_loss": 2.4125561714172363
+  },
+  {
+    "phase": "quality_enhancement",
+    "config": {
+      "name": "quality_enhancement",
+      "epochs": 3,
+      "lora_r": 32,
+      "lora_alpha": 64,
+      "lora_dropout": 0.1,
+      "target_modules": [
+        "q_proj",
+        "v_proj",
+        "k_proj"
+      ],
+      "learning_rate": 5e-05,
+      "identity_injection_rate": 0.2,
+      "weight_decay": 0.05
+    },
+    "train_loss": 9.604621672604424,
+    "eval_loss": 2.402855157852173
+  }
+]
