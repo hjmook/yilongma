@@ -150,10 +150,19 @@ SYSTEM_MSG = (
 
 
 # --------------------------
-# Device Setup
+# Device Setup (Optimized for RTX 4070 Ti)
 # --------------------------
 if torch.cuda.is_available():
     device = "cuda"
+    # Optimize CUDA settings for RTX 4070 Ti
+    torch.cuda.empty_cache()
+    torch.backends.cuda.matmul.allow_tf32 = True  # Enable TF32 for better performance on RTX 40-series
+    torch.backends.cudnn.allow_tf32 = True
+    torch.backends.cudnn.benchmark = True  # Auto-tune CUDA kernels for your specific GPU
+    logger.info(f"CUDA GPU detected: {torch.cuda.get_device_name(0)}")
+    logger.info(f"CUDA version: {torch.version.cuda}")
+    logger.info(f"Available VRAM: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
+    logger.info("TF32 optimizations enabled for RTX 40-series")
 elif torch.backends.mps.is_available():
     device = "mps"
 else:
@@ -341,17 +350,20 @@ class ResponseGenerator:
         on_mac = platform.system() == "Darwin"
 
         if has_gpu and not on_mac:
+            # Optimized 4-bit quantization for RTX 4070 Ti (12GB VRAM)
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_use_double_quant=True,
                 bnb_4bit_quant_type="nf4",
                 bnb_4bit_compute_dtype=torch.float16,
             )
+            logger.info("Loading base model with 4-bit quantization (optimized for RTX 4070 Ti)...")
             base_model = AutoModelForCausalLM.from_pretrained(
                 base_model_path,
                 quantization_config=bnb_config,
                 device_map="auto",
                 trust_remote_code=True,
+                max_memory={0: "10GB"},  # Reserve 10GB for model, leaving 2GB for operations
             )
         else:
             base_model = AutoModelForCausalLM.from_pretrained(
@@ -427,11 +439,14 @@ class ResponseGenerator:
         messages = self._format_prompt(query, chat_history, chunks, use_citations=False)
         text = self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
         inputs = self.tokenizer(text, return_tensors="pt").to(device)
+        
+        # Optimized autocast for RTX 4070 Ti
         if device == "cuda":
-            autocast_context = torch.cuda.amp.autocast(dtype=torch.float16)
+            autocast_context = torch.amp.autocast("cuda", dtype=torch.float16)
         else:
             from contextlib import nullcontext
             autocast_context = nullcontext()
+        
         with autocast_context:
             output = self.model.generate(
                 **inputs,
@@ -442,6 +457,7 @@ class ResponseGenerator:
                 do_sample=True,
                 pad_token_id=self.tokenizer.eos_token_id,
                 repetition_penalty=1.1,
+                use_cache=True,  # Enable KV cache for faster generation
             )
         response = self.tokenizer.decode(output[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True).strip()
         return response, (time.time() - start) * 1000
@@ -464,25 +480,30 @@ def ensure_analyzer() -> bool:
 
 def load_components(adapter_path: str = ADAPTER_DEFAULT):
     global generator, retriever, ready
+    logger.info("Loading components...")
     if retriever is None:
         retriever_local = CHROMA_DB_PATH
         if not os.path.exists(retriever_local):
             retriever_local = os.path.join(BASE_DIR, "elon_chroma_db")
         retriever_inst = Retriever(retriever_local)
         retriever = retriever_inst
+        logger.info(f"Retriever loaded: {retriever.is_available() if retriever else False}")
     if generator is None:
+        logger.info("Loading response generator (this takes 30-60 seconds)...")
         generator = ResponseGenerator(adapter_path, BASE_MODEL_PATH, SYSTEM_MSG)
+        logger.info("Response generator loaded!")
     ready = True
+    logger.info("✅ All components ready!")
 
 
 @app.route('/health', methods=['GET'])
 def health():
+    # Simple fast health check - don't check analyzer to avoid cascading timeouts
     return jsonify({
         "status": "healthy" if ready else "initializing",
         "ready": ready,
         "device": device,
         "rag_available": retriever.is_available() if retriever else False,
-        "analyzer": "up" if analyzer_manager._is_running() else "down",
     })
 
 
@@ -669,9 +690,23 @@ if __name__ == "__main__":
     print(f"Port: {SERVER_PORT}")
     print(f"Device: {device}")
     print("=" * 70)
+    print("\n⏳ Starting services...\n")
 
-    # Ensure analyzer and lazy-load components early to catch issues
-    ensure_analyzer()
+    # Ensure analyzer starts first
+    print("1️⃣  Starting analyzer service...")
+    if not ensure_analyzer():
+        print("❌ Analyzer failed to start!")
+        sys.exit(1)
+    print("✅ Analyzer ready\n")
+    
+    # Load all components BEFORE starting Flask server
+    print("2️⃣  Loading model components (30-60 seconds)...")
     load_components()
-
+    print("✅ All components loaded and ready!\n")
+    
+    print("3️⃣  Starting HTTP server...")
+    print("=" * 70)
+    print(f"🚀 SERVER READY - Listening on http://localhost:{SERVER_PORT}")
+    print("=" * 70)
+    
     app.run(host='0.0.0.0', port=SERVER_PORT, debug=False)

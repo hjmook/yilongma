@@ -49,6 +49,14 @@ ready = False
 
 if torch.cuda.is_available():
     device = "cuda"
+    # Optimize CUDA settings for RTX 4070 Ti
+    torch.cuda.empty_cache()
+    torch.backends.cuda.matmul.allow_tf32 = True  # Enable TF32 for better performance
+    torch.backends.cudnn.allow_tf32 = True
+    torch.backends.cudnn.benchmark = True  # Auto-tune for your GPU
+    logger.info(f"CUDA GPU detected: {torch.cuda.get_device_name(0)}")
+    logger.info(f"Available VRAM: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
+    logger.info("TF32 optimizations enabled for RTX 40-series")
 elif torch.backends.mps.is_available():
     device = "mps"
 else:
@@ -172,17 +180,20 @@ def load_model():
     on_mac = platform.system() == "Darwin"
 
     if has_gpu and not on_mac:
+        # Optimized 4-bit quantization for RTX 4070 Ti (12GB VRAM)
         bnb_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_use_double_quant=True,
             bnb_4bit_quant_type="nf4",
             bnb_4bit_compute_dtype=torch.float16,
         )
+        logger.info("Loading base model with 4-bit quantization (optimized for RTX 4070 Ti)...")
         base_model = AutoModelForCausalLM.from_pretrained(
             BASE_MODEL_PATH,
             quantization_config=bnb_config,
             device_map="auto",
             trust_remote_code=True,
+            max_memory={0: "10GB"},  # Reserve 10GB for model, leaving 2GB for operations
         )
     else:
         base_model = AutoModelForCausalLM.from_pretrained(
@@ -205,11 +216,14 @@ def load_model():
 def generate_response(messages, max_new_tokens=180):
     text = tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
     inputs = tokenizer(text, return_tensors="pt").to(device)
+    
+    # Optimized autocast for RTX 4070 Ti
     if device == "cuda":
-        autocast_context = torch.cuda.amp.autocast(dtype=torch.float16)
+        autocast_context = torch.amp.autocast("cuda", dtype=torch.float16)
     else:
         from contextlib import nullcontext
         autocast_context = nullcontext()
+    
     with autocast_context:
         output = model.generate(
             **inputs,
@@ -220,6 +234,7 @@ def generate_response(messages, max_new_tokens=180):
             do_sample=True,
             pad_token_id=tokenizer.eos_token_id,
             repetition_penalty=1.1,
+            use_cache=True,  # Enable KV cache for faster generation
         )
     response = tokenizer.decode(output[0][inputs["input_ids"].shape[-1]:], skip_special_tokens=True)
     return response.strip()
