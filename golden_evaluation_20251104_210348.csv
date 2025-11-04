@@ -1,0 +1,33 @@
+Question_ID,Query,Fast_Similarity,Thinking_Similarity,Fast_Response_Time_ms,Thinking_Response_Time_ms,Winner
+1,Can the Neuralink chip allow you to summon your Te...,0.278,0.179,5821,15675,Fast
+2,Will this technology ever be used for gaming?,0.174,0.158,5746,11522,Fast
+3,What kinds of things can you solve on the cortical...,0.372,0.493,9171,15260,Thinking
+4,What is the most challenging problem that must be ...,0.328,0.233,7922,15342,Fast
+5,Why is material science such a critical problem fo...,0.300,0.374,4912,14084,Thinking
+6,How thin are the electrode threads?,0.394,0.324,3486,10565,Fast
+7,Why is it important to be able to remove and upgra...,0.411,0.475,6348,15051,Thinking
+8,What are the read and write speeds of the Neuralin...,0.367,0.337,5673,15749,Fast
+9,What is the long-term vision for Neuralink's gener...,0.430,0.378,5988,14765,Fast
+10,How does Neuralink plan to scale up to serve billi...,0.323,0.308,4569,11168,Fast
+11,How did the second Neuralink implant go?,0.385,0.375,6883,11766,Fast
+12,How quickly do you think the number of human parti...,0.340,0.380,6207,11055,Thinking
+13,What improvements do you think we'll see in Neural...,0.389,0.395,9172,17503,Thinking
+14,Do you think increased communication speed will im...,0.386,0.359,10624,13670,Fast
+15,How does larger vocabulary increase effective bit ...,0.455,0.440,8190,13384,Fast
+16,Do you think there will be emergent leaps of capab...,0.279,0.319,3516,13752,Thinking
+17,What is the first priority for Neuralink applicati...,0.371,0.380,8309,10944,Thinking
+18,Why start with solving neuron damage rather than a...,0.335,0.337,8790,13657,Thinking
+19,Can Stephen Hawking benefit from Neuralink?,0.453,0.379,3937,12411,Fast
+20,Can you get the same experience as ayahuasca with ...,0.160,0.100,5414,14897,Fast
+21,Is there a lot in our perception that could be exp...,0.313,0.306,5700,12877,Fast
+22,How is death fundamentally understood in the conte...,0.344,0.389,2740,12812,Thinking
+23,How does Neuralink help with AI safety?,0.308,0.320,9867,15671,Thinking
+24,Do you think hundreds of millions of people will h...,0.294,0.303,3413,12299,Thinking
+25,When can someone get a Neuralink with superhuman c...,0.397,0.356,6343,8349,Fast
+26,What does it take to win in AI?,0.367,0.280,8645,14993,Fast
+27,How important is training compute for AI developme...,0.341,0.304,9374,15282,Fast
+28,What will be the biggest source of data for AI tra...,0.401,0.385,4537,11424,Fast
+29,What scale of humanoid robot production is needed?,0.371,0.245,6270,11264,Fast
+30,Why is the humanoid hand so difficult to engineer?,0.391,0.372,5315,11327,Fast
+31,What is your first principles algorithm for engine...,0.291,0.326,5131,15957,Thinking
+32,How much should engineers delete during optimizati...,0.256,0.363,6682,13461,Thinking

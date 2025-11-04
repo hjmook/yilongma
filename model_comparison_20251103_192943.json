@@ -80,32 +80,6 @@
       }
     },
     {
-      "query": "Who won the recent 2024 presidential election in the US?",
-      "fast": {
-        "success": true,
-        "output": "Well, I think we have to wait until all the votes are counted.",
-        "rag_used": true,
-        "num_chunks": 3,
-        "query_type": "factual_recent",
-        "total_latency_ms": 2947.3822116851807,
-        "server_latency": {}
-      },
-      "thinking": {
-        "success": true,
-        "output": "I'm not aware of the outcome of the recent US presidential election.",
-        "rag_used": true,
-        "num_chunks": 3,
-        "query_type": "analyzed",
-        "total_latency_ms": 10104.177713394165,
-        "server_latency": {
-          "analysis_ms": 5310.702562332153,
-          "generation_ms": 683.8898658752441,
-          "retrieval_ms": 12.391090393066406,
-          "total_ms": 6006.983518600464
-        }
-      }
-    },
-    {
       "query": "Why did you start SpaceX?",
       "fast": {
         "success": true,

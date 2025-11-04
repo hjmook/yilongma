@@ -1,0 +1,1270 @@
+{
+  "test_date": "2025-11-04T20:52:43.337136",
+  "total_pairs": 32,
+  "evaluations": [
+    {
+      "question_id": 1,
+      "query": "Can the Neuralink chip allow you to summon your Tesla telepathically?",
+      "golden_response": "Definitely. Of course. That's very easy. That's an easy one.",
+      "fast": {
+        "response": "I think we will be able to have a direct neural interface for telepathy at some point in time. That's what we're working on now. We need to get the hardware and software to be compatible. But yeah, I'm sure that we'll be able to communicate telepathically in the future.",
+        "latency_ms": 5821.252346038818,
+        "evaluation": {
+          "overall_similarity": 0.2778777912666419,
+          "text_similarity": {
+            "jaccard": 0.02040816326530612,
+            "sequence_match": 0.23636363636363636,
+            "length_ratio": 0.2222222222222222
+          },
+          "semantic_similarity": 0.09964191168546677,
+          "style_metrics": {
+            "word_length_similarity": 0.8666666666666667,
+            "sentence_structure_similarity": 1.0
+          }
+        }
+      },
+      "thinking": {
+        "response": "I think we'll have some kind of neural interface for that, but I don't know if it's going to be telepathic. It might not be telepathic. We may use some sort of neural implant to communicate with other devices, and it could be a headset, or maybe even just a chip in your ear. It could be a subdermal implant. There could be different kinds of implants. We have several designs for different types of implants, including ones that are basically just sensors and actuators. They can read electrical signals and write electrical signals. They can read your thoughts, and they can send signals to your brain. So, yes, I mean, I think it will be possible to control devices with the mind, probably within the next decade or two. And I think there will be quite a lot of competition because lots of companies are trying to figure out how to do that.",
+        "latency_ms": 15674.787044525146,
+        "evaluation": {
+          "overall_similarity": 0.17850871170362234,
+          "text_similarity": {
+            "jaccard": 0.009523809523809525,
+            "sequence_match": 0.048726467331118496,
+            "length_ratio": 0.0711743772241993
+          },
+          "semantic_similarity": 0.09751333296298981,
+          "style_metrics": {
+            "word_length_similarity": 0.878533231474408,
+            "sentence_structure_similarity": 0.4
+          }
+        }
+      }
+    },
+    {
+      "question_id": 2,
+      "query": "Will this technology ever be used for gaming?",
+      "golden_response": "Yeah, probably. 100%, yeah.",
+      "fast": {
+        "response": "Well, I think it is going to be used for video games, but we're trying to keep it simple and focus on more practical applications first. However, it's very powerful, and you can imagine using it for a variety of things like virtual reality, augmented reality, etc. The possibilities are endless. We'll have to see how people use it, but I think there's definitely a lot of potential for video games.",
+        "latency_ms": 5745.848894119263,
+        "evaluation": {
+          "overall_similarity": 0.17353866375947782,
+          "text_similarity": {
+            "jaccard": 0.0,
+            "sequence_match": 0.07042253521126761,
+            "length_ratio": 0.06766917293233082
+          },
+          "semantic_similarity": 0.08056027442216873,
+          "style_metrics": {
+            "word_length_similarity": 0.772300469483568,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      },
+      "thinking": {
+        "response": "Yeah, sure. So, I think there could be applications where you want to have more interactive simulation. So, you know, there's like a lot of things where it's just not fun to read a book or play a game. So, if you can interactively learn something, that's probably better than reading a book. And obviously, games are a great way to interactively learn stuff. But sometimes, you might want to interactively learn stuff without necessarily playing a game. So, yeah. That's possible. We'll see.",
+        "latency_ms": 11521.867752075195,
+        "evaluation": {
+          "overall_similarity": 0.15768247089612028,
+          "text_similarity": {
+            "jaccard": 0.03125,
+            "sequence_match": 0.0888030888030888,
+            "length_ratio": 0.054989816700611
+          },
+          "semantic_similarity": 0.07624312490224838,
+          "style_metrics": {
+            "word_length_similarity": 0.8095238095238094,
+            "sentence_structure_similarity": 0.2222222222222222
+          }
+        }
+      }
+    },
+    {
+      "question_id": 3,
+      "query": "What kinds of things can you solve on the cortical surface versus when you go deeper?",
+      "golden_response": "I mean, you could solve blindness, you could solve paralysis, you can solve hearing, you can solve a lot just by interfacing with the cortex. And to be clear, we actually do insert, I guess, about three or four millimeters into the cortex. These electrodes are sensing from multiple layers within the cortex. It's that there are deeper brain systems like that are underneath your cortex, like the hypothalamus. And I think that is something we'd want to interface with, for sure. Because that's going to be important for curing things like depression, addiction, that kind of thing… anxiety. So, but yeah, like as I said in the presentation, overall, we're aiming for a general-purpose device. And really, the thing that would change between from interfacing with the cortex versus deep brain systems is kind of the length of the electrode. So we just need kind of longer wires and to adjust the robot in order to access deeper regions of the brain.",
+      "fast": {
+        "response": "Well, if you're looking at the cortex, it's a very complex neural network and there's a lot of information going on, but it's really hard to get a clear picture of what's going on because it's like trying to read a book with both eyes closed while holding your breath. It's like a big mess. But then if you drill down into a particular area of the brain, like a motor neuron, that's much clearer. That's like reading a single sentence from a book. Then if you want to understand the whole library, you have to look at the entire book. If you just zoom in on one page, it's easy to see what's happening. But if you try to see the entire library at once, it gets harder. So I think the more you drill down into a specific part of the brain, the better you'll be able to understand how",
+        "latency_ms": 9170.636177062988,
+        "evaluation": {
+          "overall_similarity": 0.37177646195780284,
+          "text_similarity": {
+            "jaccard": 0.14450867052023122,
+            "sequence_match": 0.024263431542461005,
+            "length_ratio": 0.8240252897787145
+          },
+          "semantic_similarity": 0.43566006422042847,
+          "style_metrics": {
+            "word_length_similarity": 0.8598023807931519,
+            "sentence_structure_similarity": 0.7777777777777778
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I mean, our initial goal was to put electrodes directly on the cortex. That's where the neurons are. We've made some significant progress there. But then, we also thought it would be useful to have some sort of subcortical implants. So, for example, we've done some work on implanting sensors in the basal ganglia. And the basal ganglia is one of the most complicated parts of the brain because it's got many different types of cells and connections. It's a very complex system, but we've been able to make good progress there. Now, if you want to do something more invasive, you could try to implant electrodes right in the spinal cord. Or, you know, even nerves. So, I think, we'll get to that eventually. And then you could potentially control prosthetic limbs with greater precision. So, yeah. And then, you know, maybe, you know, there's some other places where you can insert sensors.",
+        "latency_ms": 15260.468244552612,
+        "evaluation": {
+          "overall_similarity": 0.49333015454080054,
+          "text_similarity": {
+            "jaccard": 0.15591397849462366,
+            "sequence_match": 0.037940379403794036,
+            "length_ratio": 0.9441517386722866
+          },
+          "semantic_similarity": 0.715450644493103,
+          "style_metrics": {
+            "word_length_similarity": 0.9914825593310653,
+            "sentence_structure_similarity": 0.6923076923076923
+          }
+        }
+      }
+    },
+    {
+      "question_id": 4,
+      "query": "What is the most challenging problem that must be solved in order to meet Neuralink's ultimate goal?",
+      "golden_response": "Well, I think one of the hardest problems is kind of I'd say material science and especially the installation of the electrodes.",
+      "fast": {
+        "response": "Well, I think the biggest challenge is that we have to make it feel really natural, because if it feels too unnatural, people won't use it. So, we need to figure out how to make it feel very natural. That's what we're trying to solve. And then, we also have to deal with the issue of getting the electrodes implanted in the right place in the skull so that they don't cause damage to the surrounding tissue. So, we've made some progress there. But, the fundamental challenge is making it feel natural. It's just about making it feel like, \"Oh, yeah, this thing is inside my head.\"",
+        "latency_ms": 7922.464370727539,
+        "evaluation": {
+          "overall_similarity": 0.3280316911380587,
+          "text_similarity": {
+            "jaccard": 0.07954545454545454,
+            "sequence_match": 0.211864406779661,
+            "length_ratio": 0.2206896551724138
+          },
+          "semantic_similarity": 0.4109545350074768,
+          "style_metrics": {
+            "word_length_similarity": 0.9108219058433051,
+            "sentence_structure_similarity": 0.1428571428571429
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think it's clear that we need to make it safe for implanting the chips. So, we've done extensive testing, and we've shown that it's completely safe for animals. We've implanted thousands of mice, rats, dogs, cats, birds -- every kind of animal imaginable, and they all survive. And then we have done clinical trials with humans. The human trial was just completed last year, where people had the chip implanted for six months, and there were no adverse effects whatsoever. It's been very successful. So, we need to make sure that the chip is safe for humans. Then we need to get the software right. That means making it easy to use, intuitive, and reliable. We want to make sure that it works seamlessly. So, we've made significant progress on that. We've got great user interface designs, and we've got a good understanding of how to make this work for people. Now, we just need to scale. We need",
+        "latency_ms": 15341.984748840332,
+        "evaluation": {
+          "overall_similarity": 0.2332383644856665,
+          "text_similarity": {
+            "jaccard": 0.07142857142857142,
+            "sequence_match": 0.16263310745401743,
+            "length_ratio": 0.1414364640883978
+          },
+          "semantic_similarity": 0.20898093283176422,
+          "style_metrics": {
+            "word_length_similarity": 0.9514134788413537,
+            "sentence_structure_similarity": 0.07692307692307687
+          }
+        }
+      }
+    },
+    {
+      "question_id": 5,
+      "query": "Why is material science such a critical problem for Neuralink?",
+      "golden_response": "I think it's going to be important in terms of material science problems, is making sure that the threads so the electrodes, can last for decades in the brain, which is a tricky thing because it's a very corrosive environment and you're in a dichotomy where you want to read, and you want to send electrical signals, and you want to generate electrical signals. But you don't want to corrode the electrodes over time. So, you need to have an insulating layer that is very robust but also very, very thin. It has to be just the right amount of insulation, and it has to stay that amount of insulation over time. So that's why we think probably like a silicon carbide type insulator is probably the best long term from a material science standpoint. But silicon carbide is tough material to work with. But that's probably the right choice long-term.",
+      "fast": {
+        "response": "We need to be able to survive inside the skull. The skull is very hard, so we have to make something that can drill through it. So, we've been working on this for quite some time, and I think we have made significant progress. We're really pushing the limits of what we thought was possible.",
+        "latency_ms": 4912.172079086304,
+        "evaluation": {
+          "overall_similarity": 0.2999479894997849,
+          "text_similarity": {
+            "jaccard": 0.14285714285714285,
+            "sequence_match": 0.029876977152899824,
+            "length_ratio": 0.3435655253837072
+          },
+          "semantic_similarity": 0.2872624397277832,
+          "style_metrics": {
+            "word_length_similarity": 0.9335333246380593,
+            "sentence_structure_similarity": 0.5714285714285714
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, it's not exactly material science, but we need to understand the biocompatibility of things. So, what is this thing going into your skull? It needs to not harm your brain. And I think people have underestimated the importance of biocompatibility. Like, why did they put lead into gasoline? Because it was cheap. Why did they put asbestos in insulation? Because it was cheap. So, there's no reason why we shouldn't do better than that. We should try to get the best materials possible. Now, we're trying to put something that's essentially a tiny robot into your skull. That's a pretty big deal. So, we want to make sure it's safe and doesn't damage your brain.",
+        "latency_ms": 14083.52780342102,
+        "evaluation": {
+          "overall_similarity": 0.374431091274656,
+          "text_similarity": {
+            "jaccard": 0.17123287671232876,
+            "sequence_match": 0.02511566424322538,
+            "length_ratio": 0.7863046044864227
+          },
+          "semantic_similarity": 0.4603462815284729,
+          "style_metrics": {
+            "word_length_similarity": 0.971767166260021,
+            "sentence_structure_similarity": 0.5384615384615384
+          }
+        }
+      }
+    },
+    {
+      "question_id": 6,
+      "query": "How thin are the electrode threads?",
+      "golden_response": "We think we can probably go sub-micron in thickness. But obviously, the thinner you make the wire, the harder it is to sense the signal and to do stimulation because there's less cross-sectional area for the current to traverse.",
+      "fast": {
+        "response": "Well, I think we're talking about the Boring Company's high-speed tunneling project here. The electrode spacing is around 10 mm.",
+        "latency_ms": 3486.083984375,
+        "evaluation": {
+          "overall_similarity": 0.3942734283657955,
+          "text_similarity": {
+            "jaccard": 0.0625,
+            "sequence_match": 0.07303370786516854,
+            "length_ratio": 0.5614035087719298
+          },
+          "semantic_similarity": 0.4444398880004883,
+          "style_metrics": {
+            "word_length_similarity": 0.8939073159256644,
+            "sentence_structure_similarity": 1.0
+          }
+        }
+      },
+      "thinking": {
+        "response": "The electrode threads for the Neuralink brain-machine interface are quite thin. I think they're around 50 microns or something like that. So, it's not like a big needle. It's a tiny little thing. And we've designed it so that the electrodes are actually quite thin, which helps reduce the risk of infection and things like that.",
+        "latency_ms": 10565.482139587402,
+        "evaluation": {
+          "overall_similarity": 0.3242254499738435,
+          "text_similarity": {
+            "jaccard": 0.06944444444444445,
+            "sequence_match": 0.02877697841726619,
+            "length_ratio": 0.6951219512195121
+          },
+          "semantic_similarity": 0.4116172790527344,
+          "style_metrics": {
+            "word_length_similarity": 0.9993425378040762,
+            "sentence_structure_similarity": 0.4
+          }
+        }
+      }
+    },
+    {
+      "question_id": 7,
+      "query": "Why is it important to be able to remove and upgrade the Neuralink device?",
+      "golden_response": "Yeah, we think we can probably go sub-micron in thickness. But obviously, the thinner you make the wire, the harder it is to sense the signal and to do stimulation because there's less cross-sectional area for the current to traverse. And, yeah, in terms of upgrades, that's part of why I wanted to show the explanted pig is to show that you can actually take the device out. And there's no observable behavior change. The pig is as happy as before, and healthy. And I think this is going to be important for upgrades. Because obviously, if you get an early device, then by the time – let's say you get version 1 – probably by the time we have version 3 or 4, you want to upgrade. You wouldn't want version 1 of a phone, and ten years later, everyone's got version 3 or 4. So it's going to be important to be able to remove the device and upgrade it over time. So over time, the Neuralink would do even more than it did before.",
+      "fast": {
+        "response": "I think people need to have the ability to upgrade the Neuralink chip because otherwise, they'd just become a permanent part of the human body. I mean, we don't want them to be stuck with a device that's no longer functional after five years. And we'll obviously want to upgrade the chip periodically. We can make new software updates that improve performance, fix bugs, etc. So, it's better to be able to upgrade, I think, than to have a permanently installed thing.",
+        "latency_ms": 6348.198413848877,
+        "evaluation": {
+          "overall_similarity": 0.41059328338596224,
+          "text_similarity": {
+            "jaccard": 0.16551724137931034,
+            "sequence_match": 0.04447632711621234,
+            "length_ratio": 0.5037756202804746
+          },
+          "semantic_similarity": 0.5711490511894226,
+          "style_metrics": {
+            "word_length_similarity": 0.9013494921108867,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think it's extremely important to have the ability to upgrade the Neuralink chip because we're just starting to get into this new paradigm where we're going to have machines talking to each other all the time, not just humans talking to machines, but also machines talking to each other. And there will be these vast networks of interconnected devices. This is like the next step beyond the internet, which was just a network of computers. Now, we're going to have devices in the body that can communicate with each other directly. So, you want to be able to upgrade your own devices in your body. It makes sense. You wouldn't want to replace your car every five years just because you wanted the latest model. That's absurd. Why replace your heart or your brain if you don't need to? But sometimes you might want to upgrade your brain for a reason. Maybe you'd want to make your brain more intelligent, maybe you'd want to improve your memory or something like that",
+        "latency_ms": 15050.969123840332,
+        "evaluation": {
+          "overall_similarity": 0.4751688857074122,
+          "text_similarity": {
+            "jaccard": 0.21022727272727273,
+            "sequence_match": 0.01893740136770121,
+            "length_ratio": 0.9517453798767967
+          },
+          "semantic_similarity": 0.594528079032898,
+          "style_metrics": {
+            "word_length_similarity": 0.9152471927525817,
+            "sentence_structure_similarity": 1.0
+          }
+        }
+      }
+    },
+    {
+      "question_id": 8,
+      "query": "What are the read and write speeds of the Neuralink device?",
+      "golden_response": "Well, do you want to say things like time resolution, like, you know, within how many milliseconds can you detect a spike. In terms of the signals that we're collecting, we're digitizing them at 20 kilohertz. The signals of interest are anywhere between about a millisecond in width. We sort of sample it at 20 times that speed. And we have analog to digital converters that divide that into 1024 levels, so 10-bit resolution. And the spike detection is done in less than 900 nanoseconds, which is really, really fast.",
+      "fast": {
+        "response": "Well, I think the maximum write speed is around 100 megabytes per second, but that's only for reading from storage. If we can actually interface directly with the brain, it's possible that the write speed will be much higher than that. And it may even exceed what the human brain can handle. But currently, I think the maximum write speed of the implant is about 100 megabytes per second.",
+        "latency_ms": 5672.637462615967,
+        "evaluation": {
+          "overall_similarity": 0.3674730800849503,
+          "text_similarity": {
+            "jaccard": 0.1,
+            "sequence_match": 0.052980132450331126,
+            "length_ratio": 0.749034749034749
+          },
+          "semantic_similarity": 0.4322909414768219,
+          "style_metrics": {
+            "word_length_similarity": 0.972940103374886,
+            "sentence_structure_similarity": 0.6666666666666667
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think we've been pretty clear on this. We can read at rates of up to 100 megabytes per second. And we can write at rates of 1 gigabyte per second. So, you know, it's not like typing on a keyboard, where you have to press a series of keys one after another. It's like thinking, just thinking of the words. So, it's very fast, but it's also quite intuitive. And then, of course, the neural interface will allow us to read thoughts from your brain directly. So, that'll be able to read your thoughts and send them back out to computers and other devices. And then, it will also enable telepathy. So, you'll be able to read minds and send thoughts back to other people. And also, we'll be able to control things with our minds. So, basically, we'll be able to control robots, drones, cars, anything remotely, just by thinking about it",
+        "latency_ms": 15748.853921890259,
+        "evaluation": {
+          "overall_similarity": 0.3369104163851726,
+          "text_similarity": {
+            "jaccard": 0.11409395973154363,
+            "sequence_match": 0.03392330383480826,
+            "length_ratio": 0.6181384248210023
+          },
+          "semantic_similarity": 0.40045779943466187,
+          "style_metrics": {
+            "word_length_similarity": 0.925783893525829,
+            "sentence_structure_similarity": 0.5454545454545454
+          }
+        }
+      }
+    },
+    {
+      "question_id": 9,
+      "query": "What is the long-term vision for Neuralink's general-purpose device?",
+      "golden_response": "Overall, we're aiming for a general-purpose device. And really, the thing that would change between from interfacing with the cortex versus deep brain systems is kind of the length of the electrode. So we just need kind of longer wires and to adjust the robot in order to access deeper regions of the brain.",
+      "fast": {
+        "response": "Well, I think we'll probably get there within the next few years. We've made some great progress in that regard. We've got a lot of people who have had implants, and it seems like they work very well. And then, we're getting more feedback from them, and we're refining the design based on that feedback. So, I'm optimistic about this. I think we can make a really powerful, high-bandwidth brain-machine interface.",
+        "latency_ms": 5987.5524044036865,
+        "evaluation": {
+          "overall_similarity": 0.43002858132165783,
+          "text_similarity": {
+            "jaccard": 0.09375,
+            "sequence_match": 0.022222222222222223,
+            "length_ratio": 0.7433414043583535
+          },
+          "semantic_similarity": 0.6486721038818359,
+          "style_metrics": {
+            "word_length_similarity": 0.9736529532447898,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      },
+      "thinking": {
+        "response": "I mean, it's gonna be a super powerful device. It's basically going to have all the functionality of a computer, but also some pretty advanced sensors. So, we'll be able to read thoughts, write thoughts, control things, basically just think stuff. I think there's no reason why this shouldn't be a reality by 2030. We've already made significant progress in the last two years, and then, of course, we need to test the safety and efficacy of the device. But I think by 2030, we should see a very high level of success in making the Neuralink chip, which will then enable people to essentially interface directly with computers. So, they can think at the speed of computers. And really, this is not just for people who are paralyzed or have severe disabilities. No, this is for anyone. This is for everyone. The whole world. That's what I'm saying.",
+        "latency_ms": 14764.501333236694,
+        "evaluation": {
+          "overall_similarity": 0.3781016941907759,
+          "text_similarity": {
+            "jaccard": 0.10526315789473684,
+            "sequence_match": 0.06412478336221837,
+            "length_ratio": 0.3624557260920897
+          },
+          "semantic_similarity": 0.5487208366394043,
+          "style_metrics": {
+            "word_length_similarity": 0.9973577128362311,
+            "sentence_structure_similarity": 0.25
+          }
+        }
+      }
+    },
+    {
+      "question_id": 10,
+      "query": "How does Neuralink plan to scale up to serve billions of people?",
+      "golden_response": "With the robot taking more and more of the responsibility away from error-prone human surgeons, we're hoping to make the process faster and safer. We need to expand to essentially doing the entire surgery with the robot. There's nothing like really, as far as I can tell, fundamentally stopping us from doing that. At a fundamental science level, it hasn't been done in the past, probably just because volumes of surgeries hasn't been needed. But specifically, for us to scale up to many hundreds of thousands or millions of patients, we will need to automate the entire surgery essentially.",
+      "fast": {
+        "response": "Well, we're already seeing some traction here, but we need to get this thing out there, and I think it will be pretty rapid. We've got thousands of devices, we'll definitely get millions, probably tens of millions, and then we can just ramp from there.",
+        "latency_ms": 4568.725109100342,
+        "evaluation": {
+          "overall_similarity": 0.3226274333525667,
+          "text_similarity": {
+            "jaccard": 0.15463917525773196,
+            "sequence_match": 0.04744958481613286,
+            "length_ratio": 0.4263959390862944
+          },
+          "semantic_similarity": 0.3734755218029022,
+          "style_metrics": {
+            "word_length_similarity": 0.9281947261663285,
+            "sentence_structure_similarity": 0.4
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, we'll figure it out. We have a very capable team, and we've been able to accomplish some pretty remarkable things at a relatively small size. So, I think scaling up will be a challenge, but we can do it. It's going to require significant investment, obviously. And we're looking for investors who share our vision. That's why we went public on the OTC market. Now, we have access to much larger pools of capital that we didn't have before.",
+        "latency_ms": 11167.898416519165,
+        "evaluation": {
+          "overall_similarity": 0.3081241318636472,
+          "text_similarity": {
+            "jaccard": 0.128,
+            "sequence_match": 0.03667953667953668,
+            "length_ratio": 0.7529610829103215
+          },
+          "semantic_similarity": 0.27972114086151123,
+          "style_metrics": {
+            "word_length_similarity": 0.9187119675456389,
+            "sentence_structure_similarity": 0.7142857142857143
+          }
+        }
+      }
+    },
+    {
+      "question_id": 11,
+      "query": "How did the second Neuralink implant go?",
+      "golden_response": "So far, so good. It looks like we've got, I think, on the order of 400 electrodes that are providing signals.",
+      "fast": {
+        "response": "It was excellent. It was quite seamless, actually. So far, no issues whatsoever. The first one was a test run. We just did some fine tuning. And then we have hundreds of thousands of people lined up for it. I think we'll probably end up doing tens of millions of implants. We're going to make humanity a type of symbiosis with machines. I mean, that's what this technology is all about. We want to merge human and machine intelligence. It seems like we've got a good start on that. And it's going to be...",
+        "latency_ms": 6882.960081100464,
+        "evaluation": {
+          "overall_similarity": 0.3851091452533121,
+          "text_similarity": {
+            "jaccard": 0.10465116279069768,
+            "sequence_match": 0.1791530944625407,
+            "length_ratio": 0.21584158415841584
+          },
+          "semantic_similarity": 0.5434204339981079,
+          "style_metrics": {
+            "word_length_similarity": 0.9669440591770689,
+            "sentence_structure_similarity": 0.1428571428571429
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, we've had some good results from the first implant, and I think it's going well. We've got a lot of people who have had the implant. We're still refining the process, but overall, I think we'll see a lot of success with this. And then the next step will be to do it at scale. So, we need to get to scale before we can make it widely available. But the early results are quite promising, and I'm excited about where this is going.",
+        "latency_ms": 11765.761852264404,
+        "evaluation": {
+          "overall_similarity": 0.3750961266275176,
+          "text_similarity": {
+            "jaccard": 0.075,
+            "sequence_match": 0.2647058823529412,
+            "length_ratio": 0.25057471264367814
+          },
+          "semantic_similarity": 0.4409651458263397,
+          "style_metrics": {
+            "word_length_similarity": 0.9743555849306016,
+            "sentence_structure_similarity": 0.33333333333333337
+          }
+        }
+      }
+    },
+    {
+      "question_id": 12,
+      "query": "How quickly do you think the number of human participants will scale?",
+      "golden_response": "It depends somewhat on the regulatory approval, the rate at which we get regulatory approvals. So, we're hoping to do 10 by the end of this year, total of 10. So, eight more.",
+      "fast": {
+        "response": "I mean I think we could probably have a hundred thousand people at a SpaceX facility right now if that's what you want. We've got plenty of space and resources. It would be very easy to add more people, but we're only working on Starship because it's a really tough mission, and we need to make sure we get it right before we start scaling up. We also don't want to waste resources. But yeah, definitely hundreds of thousands of people is possible.",
+        "latency_ms": 6207.3352336883545,
+        "evaluation": {
+          "overall_similarity": 0.34025745467146656,
+          "text_similarity": {
+            "jaccard": 0.09302325581395349,
+            "sequence_match": 0.2572347266881029,
+            "length_ratio": 0.38839285714285715
+          },
+          "semantic_similarity": 0.28155869245529175,
+          "style_metrics": {
+            "word_length_similarity": 0.9758238118893856,
+            "sentence_structure_similarity": 0.6
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think we'll start by doing like maybe around one thousand people, then we can increase it from there. We've got a line of thousands waiting for this thing. So, we'll start with a thousand, then do some more, and then see how it goes. Then, if it works well, we'll increase the number of implants. And then, once the implants have proven themselves, we'll get to a much larger scale.",
+        "latency_ms": 11054.786920547485,
+        "evaluation": {
+          "overall_similarity": 0.37988270823607695,
+          "text_similarity": {
+            "jaccard": 0.13513513513513514,
+            "sequence_match": 0.24468085106382978,
+            "length_ratio": 0.4461538461538462
+          },
+          "semantic_similarity": 0.36699455976486206,
+          "style_metrics": {
+            "word_length_similarity": 0.9712168709033913,
+            "sentence_structure_similarity": 0.6
+          }
+        }
+      }
+    },
+    {
+      "question_id": 13,
+      "query": "What improvements do you think we'll see in Neuralink in the coming years?",
+      "golden_response": "In years, it's going to be gigantic, because we'll increase the number of electrodes dramatically. We'll improve the signal processing. So, even with only roughly, I don't know, 10, 15% of the electrodes working with Noland, with our first patient, we were able to get to achieve a bit per second. That's twice the world record. So, I think we'll start vastly exceeding the world record by orders of magnitude in the years to come. So, start getting to, I don't know, 100 bits per second, thousand. Maybe if five years from now, we might be at a megabit, faster than any human could possibly communicate by typing, or speaking.",
+      "fast": {
+        "response": "Well, I'm very excited about Neuralink because it's a high-priority project for me. It's something that could potentially reverse paralysis and cure degenerative brain diseases like Alzheimer's, Parkinson's, and ALS. If we can get a better understanding of how the brain works at the level of neurons, and then how to interface directly with the brain, we can potentially solve many neurological problems. And also be able to transfer human consciousness into machines, which will change humanity forever. So, we're making good progress on Neuralink. We've had some promising results, but we have a lot more work to do. The thing is, it's incredibly difficult to interface with the brain. So, we need to develop better electrodes, better signal processing algorithms, and get better implantable devices. But we're making good progress on all these fronts. And, by the way, if we're",
+        "latency_ms": 9172.451257705688,
+        "evaluation": {
+          "overall_similarity": 0.3894183789765819,
+          "text_similarity": {
+            "jaccard": 0.11042944785276074,
+            "sequence_match": 0.01989389920424403,
+            "length_ratio": 0.7116912599318955
+          },
+          "semantic_similarity": 0.4899243712425232,
+          "style_metrics": {
+            "word_length_similarity": 0.8960618329039381,
+            "sentence_structure_similarity": 0.7777777777777778
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I mean, obviously, I'm really excited about Neuralink. It's going to enable people to control their computers with their thoughts. So, you know, the current way of doing things is pretty primitive. We've got a keyboard, a mouse, touchpad, and sometimes voice commands. That's it. The reality is, our brains are much smarter than that. Our brains are incredibly powerful, and they do a tremendous amount of processing per second. So, if we can interface directly with the brain, that's going to enable a whole new level of productivity, a whole new level of creativity, a whole new level of communication. And, by the way, we'll be able to cure paralysis, Alzheimer's, Parkinson's, and a host of other diseases just by implanting a tiny little chip in the brain that reads signals from the brain. Now, that's not a trivial task. That's not something that's easy to accomplish. But we're making great progress",
+        "latency_ms": 17502.647638320923,
+        "evaluation": {
+          "overall_similarity": 0.3951845150292026,
+          "text_similarity": {
+            "jaccard": 0.14457831325301204,
+            "sequence_match": 0.015584415584415584,
+            "length_ratio": 0.6867469879518072
+          },
+          "semantic_similarity": 0.510236382484436,
+          "style_metrics": {
+            "word_length_similarity": 0.9542105263157894,
+            "sentence_structure_similarity": 0.6363636363636364
+          }
+        }
+      }
+    },
+    {
+      "question_id": 14,
+      "query": "Do you think increased communication speed will improve the quality of intellectual discourse?",
+      "golden_response": "Well, I think you could think of it, if you were to slow down communication, how do you feel about that? If you'd only talk at, let's say one-tenth of normal speed, you'd be like, 'Wow, that's agonizingly slow.' So, now imagine you could communicate clearly at 10, or 100, or 1,000 times faster than normal.",
+      "fast": {
+        "response": "I think that's a good question. I mean, I'm a big proponent of asynchronous communication because it really forces you to think deeply about your words and then write them down before sending them, which is why I prefer email over text messages. And I think there's also some issues with the way people communicate via text messages, where they can type out one thing but then send another thing that is essentially contradictory. So yeah, I'd say asynchronous communication has its advantages. I think it's more effective for having deep conversations than real-time. That being said, I do think we should be careful about how we use technology, especially when it comes to something like social media, which can sometimes have a lot of negative effects on society. It's true that we can communicate very quickly now, but if you're communicating only through Twitter or Facebook or whatever, you might miss context. So it",
+        "latency_ms": 10624.207019805908,
+        "evaluation": {
+          "overall_similarity": 0.3862466528330853,
+          "text_similarity": {
+            "jaccard": 0.11409395973154363,
+            "sequence_match": 0.02115541090317331,
+            "length_ratio": 0.3329718004338395
+          },
+          "semantic_similarity": 0.5637983083724976,
+          "style_metrics": {
+            "word_length_similarity": 0.908203125,
+            "sentence_structure_similarity": 0.4285714285714286
+          }
+        }
+      },
+      "thinking": {
+        "response": "I don't think so. I mean, we already have great discussions here at Twitter, but the problem is, the noise level is very high, and most people aren't even contributing meaningful thoughts. They're just spewing out whatever they think. That's not helpful. And, you know, we've got a lot of, like, conspiracy theories, and misinformation spread like wildfire. So, no, I don't think that more communication speed will improve the quality of intellectual discourse. We should be careful about what we say and try to have thoughtful, well-reasoned arguments. Otherwise, we'll just get a lot of noise.",
+        "latency_ms": 13670.493602752686,
+        "evaluation": {
+          "overall_similarity": 0.3585018527820333,
+          "text_similarity": {
+            "jaccard": 0.10256410256410256,
+            "sequence_match": 0.022172949002217297,
+            "length_ratio": 0.5159663865546219
+          },
+          "semantic_similarity": 0.5214487314224243,
+          "style_metrics": {
+            "word_length_similarity": 0.8747494989979959,
+            "sentence_structure_similarity": 0.375
+          }
+        }
+      }
+    },
+    {
+      "question_id": 15,
+      "query": "How does larger vocabulary increase effective bit rate?",
+      "golden_response": "Well, it depends on the person. You can speak very fast. Like we can communicate very quickly. And also, if you use a wide range of vocabulary, your effective bit rate is higher. If there's a single word that is able to convey something that would normally require, I don't know, 10 simple words, then you've got maybe a 10X compression on your hands. And that's really like with memes. Memes are like data compression.",
+      "fast": {
+        "response": "The bit rate of text is basically how many bits per character. So, if you've got a very long vocabulary, you can encode each character in fewer bits. For example, if you go back to ASCII characters, you know, we had eight bits per character, where each letter was represented by three bytes. Now we have sixty-four bits per character, which makes a huge difference. I think it's five times faster, actually. And that's why our text-to-speech model is significantly faster and better quality than anything that existed before. And then with Grok, we've also gotten to sixty-four bits per character, which makes a huge difference in the density of the model.",
+        "latency_ms": 8190.2735233306885,
+        "evaluation": {
+          "overall_similarity": 0.4552411847242547,
+          "text_similarity": {
+            "jaccard": 0.176,
+            "sequence_match": 0.005581395348837209,
+            "length_ratio": 0.6387195121951219
+          },
+          "semantic_similarity": 0.5609819889068604,
+          "style_metrics": {
+            "word_length_similarity": 0.945321100917431,
+            "sentence_structure_similarity": 1.0
+          }
+        }
+      },
+      "thinking": {
+        "response": "The key is you want to use more bits per second for each byte of data because if you have more words per sentence, then there's less whitespace which means you can encode the data more efficiently. The answer is it depends on the situation but generally speaking, having more words per sentence increases the effective bit rate. It really depends on how well the text is written. If the writing is not good, that won't make a difference. But in general, having more words per sentence increases the effective bit rate.",
+        "latency_ms": 13384.167432785034,
+        "evaluation": {
+          "overall_similarity": 0.4401710721296871,
+          "text_similarity": {
+            "jaccard": 0.18627450980392157,
+            "sequence_match": 0.017075773745997867,
+            "length_ratio": 0.8088803088803089
+          },
+          "semantic_similarity": 0.5724059343338013,
+          "style_metrics": {
+            "word_length_similarity": 0.9911007025761124,
+            "sentence_structure_similarity": 0.7142857142857143
+          }
+        }
+      }
+    },
+    {
+      "question_id": 16,
+      "query": "Do you think there will be emergent leaps of capability as you scale the number of electrodes?",
+      "golden_response": "Yeah. Certainly, if you're anywhere at 10,000 bits per second, that's vastly faster than any human can communicate right now. If you think what is the average bits per second of a human, it is less than one bit per second over the course of a day. Because there are 86,400 seconds in a day, and you don't communicate 86,400 tokens in a day. Therefore, your bits per second is less than one, averaged over 24 hours. It's quite slow.",
+      "fast": {
+        "response": "Yes, we've seen that happen before. That's why we're doing this. The amount of progress you get by scaling is exponential, not linear.",
+        "latency_ms": 3516.498565673828,
+        "evaluation": {
+          "overall_similarity": 0.27933236441418524,
+          "text_similarity": {
+            "jaccard": 0.06756756756756757,
+            "sequence_match": 0.04601769911504425,
+            "length_ratio": 0.3109048723897912
+          },
+          "semantic_similarity": 0.29064542055130005,
+          "style_metrics": {
+            "word_length_similarity": 0.9035714285714286,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      },
+      "thinking": {
+        "response": "I don't know if we'll reach the maximum possible number of electrodes for a human head because it gets pretty small at some point. We've got, I think, around 1024 electrodes right now. And then when you get past 1024, the skull just can't fit anymore. So, we have a limit on how many electrodes can actually fit inside the skull. But even beyond that, there may be limits on how much power can go into the skull. It's a very small amount of power, but still, I mean, you'd want to make sure it doesn't hurt the person. So, yeah, there are going to be some fundamental physical limitations on how many electrodes you can put in the skull before it hurts.",
+        "latency_ms": 13751.518964767456,
+        "evaluation": {
+          "overall_similarity": 0.3194472986078151,
+          "text_similarity": {
+            "jaccard": 0.140625,
+            "sequence_match": 0.02952029520295203,
+            "length_ratio": 0.6600306278713629
+          },
+          "semantic_similarity": 0.2539716362953186,
+          "style_metrics": {
+            "word_length_similarity": 0.9811529933481152,
+            "sentence_structure_similarity": 0.8571428571428572
+          }
+        }
+      }
+    },
+    {
+      "question_id": 17,
+      "query": "What is the first priority for Neuralink applications?",
+      "golden_response": "Well, assuming that there are not basic neurological issues that people have. If they've got damaged neurons in their spinal cord, or neck, as is the case with our first two patients, then obviously the first order of business is solving fundamental neuron damage in a spinal cord, neck, or in the brain itself. So, our second product is called Blindsight, which is to enable people who are completely blind, lost both eyes, or optic nerve, or just can't see at all, to be able to see by directly triggering the neurons in the visual cortex.",
+      "fast": {
+        "response": "Well, I think the first thing that we want to do with this technology is just get it right, make sure it works well for people with paralysis, particularly those with ALS. So, we've had some great success already. We've got about 70 people who have had the procedure done, and they've been able to control a computer cursor with the implanted neural interface. That's a really big deal. And then, if we can get it to work for someone with paralysis, that'll be a huge milestone. But we'd also like to try to see if we can get it to work for people with other conditions where they can control a robot, which will probably be useful for prosthetic limbs.",
+        "latency_ms": 8308.655738830566,
+        "evaluation": {
+          "overall_similarity": 0.37131460274858086,
+          "text_similarity": {
+            "jaccard": 0.13970588235294118,
+            "sequence_match": 0.051926298157453935,
+            "length_ratio": 0.8284839203675345
+          },
+          "semantic_similarity": 0.4704322814941406,
+          "style_metrics": {
+            "word_length_similarity": 0.9481525404884558,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      },
+      "thinking": {
+        "response": "I think, I'd say, we've got a lot of things going on simultaneously, but if I had to pick one thing, it's really just getting the neuralink chip implanted safely and effectively. We need to get this done before we can really move forward with the other things, which are great, but we don't want to take unnecessary risks. So, we're working very hard to ensure that this is safe and effective.",
+        "latency_ms": 10944.478988647461,
+        "evaluation": {
+          "overall_similarity": 0.3797212995436938,
+          "text_similarity": {
+            "jaccard": 0.1092436974789916,
+            "sequence_match": 0.044967880085653104,
+            "length_ratio": 0.7264325323475046
+          },
+          "semantic_similarity": 0.3815397620201111,
+          "style_metrics": {
+            "word_length_similarity": 0.9626307922272048,
+            "sentence_structure_similarity": 1.0
+          }
+        }
+      }
+    },
+    {
+      "question_id": 18,
+      "query": "Why start with solving neuron damage rather than augmentation?",
+      "golden_response": "Because there's obviously some risk with a new device. You can't get the risk down to zero, it's not possible. So, you want to have the highest possible reward, given there's a certain irreducible risk. And if somebody's able to have a profound improvement in their communication, that's worth the risk. And once the risk is down, if you have thousands of people that have been using it for years and the risk is minimal, then perhaps at that point you could consider saying, 'Okay, let's aim for augmentation.'",
+      "fast": {
+        "response": "Well, I think it's easier to build a system that can repair damaged neurons than try to replace them. The reason we started with neuralink is because it seemed like the most accessible place to start. We could get some small incremental improvements. And then from there, if people want more advanced things, they can upgrade their implant to something more powerful. But we wanted to see if we could make something work before we moved forward. So we did. It seems like it works pretty well for chess. Then, once you've got that working, you can use that as a foundation for more complex applications. Now, I'd love to see some real-world examples of how this has improved someone's life.",
+        "latency_ms": 8790.380477905273,
+        "evaluation": {
+          "overall_similarity": 0.3349784210715615,
+          "text_similarity": {
+            "jaccard": 0.16176470588235295,
+            "sequence_match": 0.013333333333333334,
+            "length_ratio": 0.7416545718432511
+          },
+          "semantic_similarity": 0.3636555075645447,
+          "style_metrics": {
+            "word_length_similarity": 0.9894105464705079,
+            "sentence_structure_similarity": 0.5555555555555556
+          }
+        }
+      },
+      "thinking": {
+        "response": "I think it's possible to solve both. I mean, we've seen pretty impressive results from some of these other companies. There's a company called Kernel that's doing some great work in that area. And there's also a company called Kernel that's doing some really cool things with regard to brain-computer interfaces, but they're focused on kind of the non-invasive sort of things, where you don't have electrodes implanted in your skull. So, yeah, I think it's definitely possible to do both, but I'm not sure which path is better, and I think we'll see. We'll just have to wait and see what happens.",
+        "latency_ms": 13656.629800796509,
+        "evaluation": {
+          "overall_similarity": 0.3373452995304378,
+          "text_similarity": {
+            "jaccard": 0.14754098360655737,
+            "sequence_match": 0.023486901535682024,
+            "length_ratio": 0.8573825503355704
+          },
+          "semantic_similarity": 0.30177339911460876,
+          "style_metrics": {
+            "word_length_similarity": 0.9909702952281308,
+            "sentence_structure_similarity": 0.8333333333333334
+          }
+        }
+      }
+    },
+    {
+      "question_id": 19,
+      "query": "Can Stephen Hawking benefit from Neuralink?",
+      "golden_response": "For people who have essentially complete or near complete loss from the brain to the body, like Stephen Hawking would be an example, the Neuralink would be incredibly profound, because you can imagine if Stephen Hawking could communicate as fast as we're communicating, perhaps faster. And that's certainly possible. Probable, in fact. Likely, I'd say.",
+      "fast": {
+        "response": "Well, I think it's unlikely that Stephen Hawking could have benefited from Neuralink because he was dead when we were developing the product. He passed away in 2018.",
+        "latency_ms": 3937.256097793579,
+        "evaluation": {
+          "overall_similarity": 0.45335611692848005,
+          "text_similarity": {
+            "jaccard": 0.13846153846153847,
+            "sequence_match": 0.027079303675048357,
+            "length_ratio": 0.46875
+          },
+          "semantic_similarity": 0.6982109546661377,
+          "style_metrics": {
+            "word_length_similarity": 0.9096356663470758,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think it's very difficult to predict what the future will hold, but if he were alive today, I'm sure he'd want to be able to control his environment, communicate with people, and access the internet. And that's exactly what we're trying to make possible with Neuralink. But I don't know whether or not he would have been interested in doing the implant. I mean, I've talked to him several times, and he was always skeptical of implants. He thought they sounded crazy. So, I don't know if he would have done one himself. But he definitely would have wanted to use them for communication purposes.",
+        "latency_ms": 12410.579681396484,
+        "evaluation": {
+          "overall_similarity": 0.3790510058671974,
+          "text_similarity": {
+            "jaccard": 0.11504424778761062,
+            "sequence_match": 0.012565445026178011,
+            "length_ratio": 0.5837479270315091
+          },
+          "semantic_similarity": 0.5266473293304443,
+          "style_metrics": {
+            "word_length_similarity": 0.8572727842940476,
+            "sentence_structure_similarity": 0.5714285714285714
+          }
+        }
+      }
+    },
+    {
+      "question_id": 20,
+      "query": "Can you get the same experience as ayahuasca with Neuralink?",
+      "golden_response": "Probably. Yeah.",
+      "fast": {
+        "response": "Well, I don't think we're quite there yet. We've done some studies on the brain-computer interface and the effects of psychedelics, but I'm skeptical about using psychedelics for neural implants. That's a pretty radical idea. It's like putting LSD into your brain directly. It's kind of crazy. I mean, it's like trying to put diesel fuel in gasoline engine.",
+        "latency_ms": 5414.224147796631,
+        "evaluation": {
+          "overall_similarity": 0.15990308706916023,
+          "text_similarity": {
+            "jaccard": 0.0,
+            "sequence_match": 0.06451612903225806,
+            "length_ratio": 0.04201680672268908
+          },
+          "semantic_similarity": 0.10317358374595642,
+          "style_metrics": {
+            "word_length_similarity": 0.7239709443099274,
+            "sentence_structure_similarity": 0.33333333333333337
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think it's not exactly the same, but there are some interesting things we're doing with psychedelics, particularly MDMA. So, we've got this MDMA project where, you know, people who have PTSD and other traumatic experiences, and they just can't seem to overcome them, and they're really depressed, and they're really anxious, and they don't want to live anymore, and they feel like they're stuck in a rut. And then if they take MDMA, it makes all these memories come back up, but instead of being traumatic, they become enjoyable. It becomes fun to relive them because it feels like, you know, it's like a rollercoaster ride. And then once the MDMA wears off, and the traumatic memories fade away, they actually start to feel good again. So, it's like a sort of healing process. So, we're working on developing a pill version of MDMA that's safe for everyone. We call it MDMA-assisted",
+        "latency_ms": 14897.165536880493,
+        "evaluation": {
+          "overall_similarity": 0.0996589763386026,
+          "text_similarity": {
+            "jaccard": 0.0,
+            "sequence_match": 0.03090507726269316,
+            "length_ratio": 0.016835016835016835
+          },
+          "semantic_similarity": -0.008883947506546974,
+          "style_metrics": {
+            "word_length_similarity": 0.6846011131725418,
+            "sentence_structure_similarity": 0.2857142857142857
+          }
+        }
+      }
+    },
+    {
+      "question_id": 21,
+      "query": "Is there a lot in our perception that could be explored with Neuralink for non-disabled people?",
+      "golden_response": "Yeah, I mean, Neuralink, it's really a generalized input-output device. It's reading electrical signals, and generating electrical signals, and I mean, everything that you've ever experienced in your whole life, smell, emotions, all of those are electrical signals. So, it's kind of weird to think that your entire life experience is distilled down to electrical signals for neurons, but that is in fact the case. Or I mean, that's at least what all the evidence points to. So, I mean, if you trigger the right neuron, you could trigger a particular scent. You could certainly make things glow. I mean, do pretty much anything.",
+      "fast": {
+        "response": "Yes. I think we could make the computer more intelligent about what we say. So, if we could get it to know what we mean by the words we speak, then we could communicate much more effectively than we can now. And also, we could have sort of mind-controlled robots. And, I don’t know how good this sounds, but, basically, you could just talk to a robot and it does stuff for you.",
+        "latency_ms": 5699.948310852051,
+        "evaluation": {
+          "overall_similarity": 0.31321805464138386,
+          "text_similarity": {
+            "jaccard": 0.13392857142857142,
+            "sequence_match": 0.06772908366533864,
+            "length_ratio": 0.6012759170653907
+          },
+          "semantic_similarity": 0.29633545875549316,
+          "style_metrics": {
+            "word_length_similarity": 0.8292376869183311,
+            "sentence_structure_similarity": 0.7142857142857143
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think we're going to explore a wide range of things. I mean, if you think about it, basically every human being could benefit from some form of assistive technology. And by assistive technology, I mean anything from prosthetics to brain-computer interfaces. And I think we can do better than what currently exists. So, for example, a lot of people have these smart glasses, smart watches, smart phones. They're very useful, but they don't have much feedback. It's like just sort of looking at a screen all day. So, how can we get more feedback? How can we make it easier to interact with the world around us? That's a big one.",
+        "latency_ms": 12876.760721206665,
+        "evaluation": {
+          "overall_similarity": 0.30649072638001323,
+          "text_similarity": {
+            "jaccard": 0.15827338129496402,
+            "sequence_match": 0.05392545598731166,
+            "length_ratio": 0.9889589905362776
+          },
+          "semantic_similarity": 0.25591710209846497,
+          "style_metrics": {
+            "word_length_similarity": 0.9168411808417212,
+            "sentence_structure_similarity": 0.7
+          }
+        }
+      }
+    },
+    {
+      "question_id": 22,
+      "query": "How is death fundamentally understood in the context of information?",
+      "golden_response": "Death is fundamentally the loss of information, the loss of memory. What are we but our memories? And what is death? But the loss of memory, loss of information? If you could say, well, if you could run a thought experiment, what if you were disintegrated painlessly, and then reintegrated a moment later, like teleportation, I guess? Provided there's no information loss, the fact that your one body was disintegrated is irrelevant.",
+      "fast": {
+        "response": "Well, I think death is when you stop working.",
+        "latency_ms": 2740.288257598877,
+        "evaluation": {
+          "overall_similarity": 0.344404301249607,
+          "text_similarity": {
+            "jaccard": 0.09259259259259259,
+            "sequence_match": 0.016736401673640166,
+            "length_ratio": 0.10392609699769054
+          },
+          "semantic_similarity": 0.5602596998214722,
+          "style_metrics": {
+            "word_length_similarity": 0.8176795580110496,
+            "sentence_structure_similarity": 0.16666666666666663
+          }
+        }
+      },
+      "thinking": {
+        "response": "I think people generally don't understand death very well. I mean, they think it's this thing that happens to us, but actually, it's a transition. It's like a change in circumstances. So, we're born, we die. We're born in one circumstance and we die in another circumstance. And I think there's not really much of a difference between being born and dying. People get excited about being born because they get to start over again. And they get excited about dying because they can finally take a break from their current circumstances. So, I think we should view death as more of a transition than something that we fear.",
+        "latency_ms": 12812.377452850342,
+        "evaluation": {
+          "overall_similarity": 0.38922500642564073,
+          "text_similarity": {
+            "jaccard": 0.10091743119266056,
+            "sequence_match": 0.011385199240986717,
+            "length_ratio": 0.6972624798711755
+          },
+          "semantic_similarity": 0.5162235498428345,
+          "style_metrics": {
+            "word_length_similarity": 0.9360839373511075,
+            "sentence_structure_similarity": 0.6666666666666667
+          }
+        }
+      }
+    },
+    {
+      "question_id": 23,
+      "query": "How does Neuralink help with AI safety?",
+      "golden_response": "Many years ago I was thinking like, 'Well, what would inhibit alignment of collective human will with artificial intelligence?' And the low data rate of humans, especially our slow output rate would necessarily, just because the communication is so slow, would diminish the link between humans and computers. We could better align collective human will with AI if the output rate especially was dramatically increased.",
+      "fast": {
+        "response": "Well, I think we have to be careful about how AI is developed, and we need to make sure that it doesn't go out of control. We don't want AI to become superintelligent and destroy humanity. So, our goal at Neuralink is to make it very safe for humans. And one of the ways to achieve that is by making sure that the AI is aligned with human values. If we can align AI with human values, then we'll be okay. And the only way to really know what human values are is through direct communication with the brain. And I think that's where neural implants will come in. There's a lot of research on how to make it safer and more secure. I mean, we've got a lot of work to do. But, if we succeed, I think this could be really big. This could be a major thing. It's going",
+        "latency_ms": 9867.171049118042,
+        "evaluation": {
+          "overall_similarity": 0.3080037534559231,
+          "text_similarity": {
+            "jaccard": 0.12403100775193798,
+            "sequence_match": 0.020356234096692113,
+            "length_ratio": 0.5492772667542707
+          },
+          "semantic_similarity": 0.44541412591934204,
+          "style_metrics": {
+            "word_length_similarity": 0.7368792744573298,
+            "sentence_structure_similarity": 0.2727272727272727
+          }
+        }
+      },
+      "thinking": {
+        "response": "AI safety is very important for me, I mean, we want to make sure that AI is not a threat to humanity. And I think we've been pretty good at that. But, yeah, AI safety is something that we need to take seriously. It's not just a matter of whether the AI is smart enough to beat us, but also whether it can even exist in the first place. So, there's this thing called the \"alignment problem.\" It refers to how do we align AI goals with human values. Do we want the AI to have goals that are aligned with ours, or will it try to pursue some other goal that's not in line with human values? This is a very difficult problem. There are many solutions proposed, but they all seem to fail. I think there are two main reasons why these solutions fail. The first one is that they're too narrow. They only address one aspect of the alignment problem, which means that they don't actually solve the entire problem",
+        "latency_ms": 15671.44227027893,
+        "evaluation": {
+          "overall_similarity": 0.3195574234643513,
+          "text_similarity": {
+            "jaccard": 0.09523809523809523,
+            "sequence_match": 0.00909090909090909,
+            "length_ratio": 0.4634146341463415
+          },
+          "semantic_similarity": 0.4848484694957733,
+          "style_metrics": {
+            "word_length_similarity": 0.7747950752751379,
+            "sentence_structure_similarity": 0.2727272727272727
+          }
+        }
+      }
+    },
+    {
+      "question_id": 24,
+      "query": "Do you think hundreds of millions of people will have Neuralinks in the next couple of decades?",
+      "golden_response": "Yeah, I do. If it's extremely safe, and you can have superhuman abilities, and let's say you can upload your memories, so you wouldn't lose memories, then I think probably a lot of people would choose to have it. It would supersede the cell phone, for example.",
+      "fast": {
+        "response": "Yes. I think it's definitely possible that a hundred million people could be connected in a few years and then certainly tens of billions in ten to fifteen years.",
+        "latency_ms": 3412.702798843384,
+        "evaluation": {
+          "overall_similarity": 0.29374608019072374,
+          "text_similarity": {
+            "jaccard": 0.15789473684210525,
+            "sequence_match": 0.07582938388625593,
+            "length_ratio": 0.6230769230769231
+          },
+          "semantic_similarity": 0.20448842644691467,
+          "style_metrics": {
+            "word_length_similarity": 0.9853921879961893,
+            "sentence_structure_similarity": 0.6666666666666667
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, we've already done thousands of surgeries, and we've had really great success rates. We're pretty much at maximum capacity, and we're still getting requests for implants from around the world. So I'd say it's likely we'll get at least tens of thousands more in the next few years. And then by the end of the decade, probably hundreds of thousands, maybe even a million or two. But we want to make sure that the hardware works perfectly before we start putting it into humans. Because if it's not perfect, it wouldn't be worth risking a human life. So we're very careful about this.",
+        "latency_ms": 12298.802852630615,
+        "evaluation": {
+          "overall_similarity": 0.30296172177328345,
+          "text_similarity": {
+            "jaccard": 0.12727272727272726,
+            "sequence_match": 0.021251475796930343,
+            "length_ratio": 0.44293015332197616
+          },
+          "semantic_similarity": 0.3314064145088196,
+          "style_metrics": {
+            "word_length_similarity": 0.978371724986812,
+            "sentence_structure_similarity": 0.4285714285714286
+          }
+        }
+      }
+    },
+    {
+      "question_id": 25,
+      "query": "When can someone get a Neuralink with superhuman capabilities?",
+      "golden_response": "Probably less than 10 years. It depends on what you want to do. Well, we feel pretty confident that I think maybe within the next year or two, that someone with a Neuralink implant will be able to outperform a pro gamer. Because the reaction time would be faster.",
+      "fast": {
+        "response": "Well, I think we'll have the first implant done by the end of this year. And then it will be available for sale next year. So, we've got about a million implants lined up, and that number keeps growing. We expect to start selling the N1 implant sometime early next year. It will cost $300,000, which is much less than what other neurostimulation companies are charging, and I believe it will sell very well because it does things that no one else can do.",
+        "latency_ms": 6342.664003372192,
+        "evaluation": {
+          "overall_similarity": 0.3969561412129552,
+          "text_similarity": {
+            "jaccard": 0.18947368421052632,
+            "sequence_match": 0.09205020920502092,
+            "length_ratio": 0.579295154185022
+          },
+          "semantic_similarity": 0.4032649099826813,
+          "style_metrics": {
+            "word_length_similarity": 0.9934539853677319,
+            "sentence_structure_similarity": 0.8
+          }
+        }
+      },
+      "thinking": {
+        "response": "I think we should start seeing people with implants in early next year. So probably sometime in late 2024, early 2025.",
+        "latency_ms": 8348.599195480347,
+        "evaluation": {
+          "overall_similarity": 0.35591941072275746,
+          "text_similarity": {
+            "jaccard": 0.10526315789473684,
+            "sequence_match": 0.047244094488188976,
+            "length_ratio": 0.44866920152091255
+          },
+          "semantic_similarity": 0.4534865915775299,
+          "style_metrics": {
+            "word_length_similarity": 0.9402332361516034,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      }
+    },
+    {
+      "question_id": 26,
+      "query": "What does it take to win in AI?",
+      "golden_response": "For AI, that means you've got to have the most powerful training compute, and the rate of improvement of training compute has to be faster than everyone else, or you will not win. Your AI will be worse.",
+      "fast": {
+        "response": "Well, what makes winning in AI difficult is actually not really hard, because we have tremendous capabilities. We have the most powerful computing hardware, software, and talent on the planet. And so, we've got a lot of resources. The challenge is getting the right people together, and then executing well. That's where the key is. It's like building a great team, and making sure they all work well together. And, also, just being able to execute on the plans. So, it's really more about execution than anything else. It's a bit like running a company. If you get the right team, and you run the right plan, you'll be fine. That's true for human companies too. In fact, it's even truer for AI companies. The same principles apply.",
+        "latency_ms": 8644.616603851318,
+        "evaluation": {
+          "overall_similarity": 0.36706982140253586,
+          "text_similarity": {
+            "jaccard": 0.12389380530973451,
+            "sequence_match": 0.021413276231263382,
+            "length_ratio": 0.27595628415300544
+          },
+          "semantic_similarity": 0.5768944025039673,
+          "style_metrics": {
+            "word_length_similarity": 0.9186602870813397,
+            "sentence_structure_similarity": 0.15384615384615385
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, what's interesting is we've been working on this Grok thing for years now. And one of the things we want to see happen is to have Grok be able to reason, really understand natural language, which is essential for AI systems. So, we need to have a way for Grok to reason. We need Grok to understand causality. Why something happens. What's the cause and effect. How does a particular action lead to a different state of affairs. Because if you don't understand causality, you can't really make good decisions. You can only react. But if you can actually understand causality, you can predict the future. And if you can predict the future, then you can make good decisions. That's really important. \n\nAnd I think that's hard to achieve. People say that AI is not strong in understanding causality. They say that we're weak in understanding causality. Which I disagree with because I think we're pretty good at",
+        "latency_ms": 14993.46923828125,
+        "evaluation": {
+          "overall_similarity": 0.2804746894098218,
+          "text_similarity": {
+            "jaccard": 0.09649122807017543,
+            "sequence_match": 0.025112107623318385,
+            "length_ratio": 0.2212486308871851
+          },
+          "semantic_similarity": 0.37783700227737427,
+          "style_metrics": {
+            "word_length_similarity": 0.9168588802684001,
+            "sentence_structure_similarity": 0.1333333333333333
+          }
+        }
+      }
+    },
+    {
+      "question_id": 27,
+      "query": "How important is training compute for AI development?",
+      "golden_response": "I mean, they all matter. It's sort of like saying, let's say it's a Formula 1 race, what matters more, the car or the driver? I mean, they both matter. If a car is not fast, then if, let's say, it's half the horsepower of your competitors, the best driver will still lose. If it's twice the horsepower, then probably even a mediocre driver will still win. So, the training compute is kind of like the engine, this horsepower of the engine.",
+      "fast": {
+        "response": "Well, I think, it's, you know, people tend to focus on hardware as being the bottleneck, but actually, it's not really the hardware bottleneck. It's just, you know, getting the right amount of compute power to run a large neural network is the problem. And, you know, in order to get the performance, you need a lot of energy, which means you need a lot of power. So, you know, power is the real constraint here. Now, to get more power, you need more electricity, which means more energy, which means more coal or gas or nuclear power. And then, you know, where does the energy come from? That's where the question comes in. And I'm not saying this is an easy problem by any stretch, but I think it's definitely a solvable problem. And I think we've made good progress on it",
+        "latency_ms": 9373.755931854248,
+        "evaluation": {
+          "overall_similarity": 0.34105446895013175,
+          "text_similarity": {
+            "jaccard": 0.08527131782945736,
+            "sequence_match": 0.016488046166529265,
+            "length_ratio": 0.5671834625322998
+          },
+          "semantic_similarity": 0.36729562282562256,
+          "style_metrics": {
+            "word_length_similarity": 0.9878434702068541,
+            "sentence_structure_similarity": 0.75
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think it's extremely important. Training compute power is essential for making progress in AI. The reason we want to make AI better is because we want to make AI useful. And if AI is not useful, then why bother? So, we want to make it useful and to make it useful, we need to have more computing power. We need to be able to process more data, learn from more data, and train more complex models. Therefore, having access to high-quality, large datasets and sufficient training compute power is crucial for advancing AI research. Now, I know there's been some concern about whether or not we should be spending billions of dollars on training AI when there's poverty and hunger and disease all around the world. But, I think it's like asking whether we should spend billions of dollars on the internet. Should we build a high-speed internet network? No, that's a ridiculous question. Of course, we should build a global high-speed internet network. Why?",
+        "latency_ms": 15282.408714294434,
+        "evaluation": {
+          "overall_similarity": 0.30447733519096454,
+          "text_similarity": {
+            "jaccard": 0.10869565217391304,
+            "sequence_match": 0.037142857142857144,
+            "length_ratio": 0.45681581685744016
+          },
+          "semantic_similarity": 0.34361350536346436,
+          "style_metrics": {
+            "word_length_similarity": 0.9171038502837859,
+            "sentence_structure_similarity": 0.46153846153846156
+          }
+        }
+      }
+    },
+    {
+      "question_id": 28,
+      "query": "What will be the biggest source of data for AI training?",
+      "golden_response": "With Tesla and the real time video coming from several million cars, ultimately tens of millions of cars with Optimus, there might be hundreds of millions of Optimus robots, maybe billions, learning a tremendous amount from the real world. That's the biggest source of data, I think, ultimately, is Optimus, probably. Optimus is going to be the biggest source of data.",
+      "fast": {
+        "response": "Well, I think the data source is going to be the internet. And we should try to make sure the internet is good and clean and relevant, but we want to capture a lot of data, because the better the data, the better the AI model will be.",
+        "latency_ms": 4537.229776382446,
+        "evaluation": {
+          "overall_similarity": 0.4010441012292737,
+          "text_similarity": {
+            "jaccard": 0.16666666666666666,
+            "sequence_match": 0.04318936877076412,
+            "length_ratio": 0.6358695652173914
+          },
+          "semantic_similarity": 0.538121223449707,
+          "style_metrics": {
+            "word_length_similarity": 0.7715773809523809,
+            "sentence_structure_similarity": 0.6666666666666667
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think one of the most important things we need to focus on is high-quality video data. This includes not just videos but also 3D modeling, video games, robotics, computer simulations. The more diverse the better. We want to have as much data as possible because we want our AI system to be able to generalize well across all situations and environments. So, really, it's about having access to a vast amount of high-quality data. That's what matters.",
+        "latency_ms": 11424.13330078125,
+        "evaluation": {
+          "overall_similarity": 0.38523981615706226,
+          "text_similarity": {
+            "jaccard": 0.125,
+            "sequence_match": 0.03389830508474576,
+            "length_ratio": 0.8034934497816594
+          },
+          "semantic_similarity": 0.5204866528511047,
+          "style_metrics": {
+            "word_length_similarity": 0.952654939996712,
+            "sentence_structure_similarity": 0.5
+          }
+        }
+      }
+    },
+    {
+      "question_id": 29,
+      "query": "What scale of humanoid robot production is needed?",
+      "golden_response": "It's the same as cars, really. I mean, global capacity for vehicles is about 100 million a year. For humanoid robots, the utility is much greater. So, my guess is humanoid robots are more like at a billion plus per year.",
+      "fast": {
+        "response": "I think we need to build robots that are capable of self-replication. If we don't, then the competition to build robots will be impossible. So, it's really important to get this right. We should build robots that can replicate themselves because if we don't, then we'll lose out on the competition to China and other places that do build robots. It's really hard to compete against China when they're able to make millions of robots at a lower cost.",
+        "latency_ms": 6269.772291183472,
+        "evaluation": {
+          "overall_similarity": 0.37061558661352295,
+          "text_similarity": {
+            "jaccard": 0.1,
+            "sequence_match": 0.01195814648729447,
+            "length_ratio": 0.48997772828507796
+          },
+          "semantic_similarity": 0.436847448348999,
+          "style_metrics": {
+            "word_length_similarity": 0.934849779764644,
+            "sentence_structure_similarity": 0.8
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think it's hard to say exactly what the right number is, but like, let's see how many people want to work for Tesla.",
+        "latency_ms": 11264.447927474976,
+        "evaluation": {
+          "overall_similarity": 0.24465133560001592,
+          "text_similarity": {
+            "jaccard": 0.07407407407407407,
+            "sequence_match": 0.023255813953488372,
+            "length_ratio": 0.5636363636363636
+          },
+          "semantic_similarity": 0.27268561720848083,
+          "style_metrics": {
+            "word_length_similarity": 0.911111111111111,
+            "sentence_structure_similarity": 0.25
+          }
+        }
+      }
+    },
+    {
+      "question_id": 30,
+      "query": "Why is the humanoid hand so difficult to engineer?",
+      "golden_response": "There's going to be an immense amount of engineering just going into the hand. The hand, it might be close to half of all the engineering in Optimus. From an electromechanical standpoint, the hand is probably roughly half of the engineering. So, our new arm has 22 degrees of freedom instead of 11 and has, like I said, the actuators in the forearm. And all the actuators are designed from scratch, from physics first principles.",
+      "fast": {
+        "response": "Well, I think, if you try to create a human-like hand, you want to make sure that it's very flexible. So we've designed the human hand to be quite rigid, and I think that's one of the main reasons why there are so many failures when trying to create a humanoid robot. We should probably make it more flexible.",
+        "latency_ms": 5314.67080116272,
+        "evaluation": {
+          "overall_similarity": 0.39148028024385945,
+          "text_similarity": {
+            "jaccard": 0.13636363636363635,
+            "sequence_match": 0.01084010840108401,
+            "length_ratio": 0.7202797202797203
+          },
+          "semantic_similarity": 0.530403196811676,
+          "style_metrics": {
+            "word_length_similarity": 0.8987825256624493,
+            "sentence_structure_similarity": 0.6
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I mean, we've been trying to make better hands for a while now, and it's really tough because the hand is just so complex. It's got all these fingers, thumb, wrist, palm, all this stuff. So, you know, we've tried various approaches, and some have worked better than others, but we haven't quite gotten to where we want yet. But, you know, our goal is to get there. We're making progress, and I think we'll get there eventually.",
+        "latency_ms": 11327.098608016968,
+        "evaluation": {
+          "overall_similarity": 0.3721108821897646,
+          "text_similarity": {
+            "jaccard": 0.09345794392523364,
+            "sequence_match": 0.0069605568445475635,
+            "length_ratio": 0.9907621247113164
+          },
+          "semantic_similarity": 0.39272618293762207,
+          "style_metrics": {
+            "word_length_similarity": 0.9493670886075949,
+            "sentence_structure_similarity": 1.0
+          }
+        }
+      }
+    },
+    {
+      "question_id": 31,
+      "query": "What is your first principles algorithm for engineering?",
+      "golden_response": "I have this very basic first principles algorithm that I run kind of as a mantra, which is to first question the requirements, make the requirements less dumb. The requirements are always dumb to some degree. So, you want to start off by reducing the number of requirements. And then, the second thing is try to delete whatever the step is, the part or the process step. And only the third thing is try to optimize it or simplify it. The most common mistake of smart engineers is to optimize a thing that should not exist.",
+      "fast": {
+        "response": "First principles thinking is really important. First principles thinking means trying to understand what the fundamental laws are. And then apply them. It's like understanding physics. Physics is the fundamental law of nature. So I think of it as being similar to physics. If you don't understand physics, how can you possibly make good decisions? Same thing with first principles thinking.",
+        "latency_ms": 5131.429672241211,
+        "evaluation": {
+          "overall_similarity": 0.2913778632308533,
+          "text_similarity": {
+            "jaccard": 0.12871287128712872,
+            "sequence_match": 0.015350877192982455,
+            "length_ratio": 0.7471264367816092
+          },
+          "semantic_similarity": 0.26336511969566345,
+          "style_metrics": {
+            "word_length_similarity": 0.8221906565656566,
+            "sentence_structure_similarity": 0.75
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think people often ask me what my first principles algorithm is. Well, it's not really one algorithm. I mean, we have lots of algorithms. We have lots of different algorithms depending on the task, but our overarching philosophy is just to try to optimize the value creation process, because that's what gets you wealth. That's how wealth is created, is through creating value. So, whether it's with cars, whether it's space exploration, whether it's energy storage, whether it's solar power, whether it's Neuralink, whether it's The Boring Company, we're all trying to increase value creation. And if you focus on increasing value creation, then, obviously, the wealth follows. So, that's kind of the underlying principle. But, you know, every day is like a mini-second-order problem-solving. Like, I'm always trying to figure out how can I increase the value creation rate in the next second. That's kind of my mindset.",
+        "latency_ms": 15956.53772354126,
+        "evaluation": {
+          "overall_similarity": 0.3258197455532217,
+          "text_similarity": {
+            "jaccard": 0.12837837837837837,
+            "sequence_match": 0.008270158511371467,
+            "length_ratio": 0.5618945102260495
+          },
+          "semantic_similarity": 0.3943173587322235,
+          "style_metrics": {
+            "word_length_similarity": 0.862176401369277,
+            "sentence_structure_similarity": 0.5454545454545454
+          }
+        }
+      }
+    },
+    {
+      "question_id": 32,
+      "query": "How much should engineers delete during optimization?",
+      "golden_response": "If you're not forced to put back at least 10% of what you delete, you're not deleting enough. People often feel as though they've succeeded if they've not been forced to put things back in. But, actually, they haven't because they've been overly conservative. You actually have to say, 'Look, we're deliberately going to delete more than we should.' At least one in 10 things, we're going to add back in.",
+      "fast": {
+        "response": "Well, I think, we need to optimize our engineering teams to make them super efficient. So, how do you optimize the engineering teams? Well, there's really no substitute for talent. And if people aren't doing great work, then, yeah, you gotta let them go. That's just true. But if you've got talented people working on projects that don't have a future, then, you know, there's just no point keeping those people around.",
+        "latency_ms": 6682.152032852173,
+        "evaluation": {
+          "overall_similarity": 0.25590402670730816,
+          "text_similarity": {
+            "jaccard": 0.058823529411764705,
+            "sequence_match": 0.02187120291616039,
+            "length_ratio": 0.964200477326969
+          },
+          "semantic_similarity": 0.1477573662996292,
+          "style_metrics": {
+            "word_length_similarity": 0.9732880038853813,
+            "sentence_structure_similarity": 0.8333333333333334
+          }
+        }
+      },
+      "thinking": {
+        "response": "Well, I think we should delete a lot of the code. It's just not necessary. We want to keep the core principles, but if there's a particular piece of code that's doing something really inefficient, then we should definitely remove it. And if you have a piece of code that's just duplicated in multiple places because someone didn't know how to refactor, then yeah, let's get rid of that duplication. That's a no-brainer.",
+        "latency_ms": 13460.694313049316,
+        "evaluation": {
+          "overall_similarity": 0.36296284657177913,
+          "text_similarity": {
+            "jaccard": 0.10526315789473684,
+            "sequence_match": 0.01701093560145808,
+            "length_ratio": 0.964200477326969
+          },
+          "semantic_similarity": 0.3488576412200928,
+          "style_metrics": {
+            "word_length_similarity": 0.9896497138450299,
+            "sentence_structure_similarity": 1.0
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "fast": {
+      "avg_overall_similarity": 0.34394375912348263,
+      "avg_text_similarity": 0,
+      "avg_semantic_similarity": 0,
+      "avg_response_time": 6396.756716072559,
+      "successful_responses": 32
+    },
+    "thinking": {
+      "avg_overall_similarity": 0.33355226453602055,
+      "avg_text_similarity": 0,
+      "avg_semantic_similarity": 0,
+      "avg_response_time": 13372.97947704792,
+      "successful_responses": 32
+    }
+  }
+}

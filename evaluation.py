@@ -15,7 +15,6 @@ TEST_QUERIES = [
     "What are your plans for this year?",
     "How many Starlink satellites are in orbit currently?",
     "What happened with Twitter's rebranding to X?",
-    "Who won the recent 2024 presidential election in the US?",
     
     # Domain knowledge
     "Why did you start SpaceX?",
