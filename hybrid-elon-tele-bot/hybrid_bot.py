@@ -40,7 +40,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     # Welcome message
     welcome_msg = (
-        "Hello! I'm Elon Musk (well, a chatbot version 😄)\n\n"
+        "Hello! I'm Elon Musk (well, a chatbot version)\n\n"
         "Ask me anything about:\n"
         "• Tesla, SpaceX, Neuralink, X (Twitter)\n"
         "• Technology, AI, space exploration\n"
