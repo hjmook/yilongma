@@ -318,14 +318,14 @@ def get_model_response(server_url: str, query: str, user_id: str = "evaluator") 
         start = time.time()
         response = requests.post(
             server_url,
-            json={"query": query, "user_id": user_id},
-            timeout=30
+            json={"input": query, "user_id": user_id, "use_rag": True},  # Fixed: 'input' not 'query'
+            timeout=120  # Increased to 120 seconds for model loading + RAG processing
         )
         response_time = int((time.time() - start) * 1000)
         
         if response.status_code == 200:
             data = response.json()
-            return data.get('response', ''), response_time
+            return data.get('output', ''), response_time
         else:
             return f"Error: {response.status_code}", response_time
     except Exception as e:
@@ -356,7 +356,7 @@ def evaluate_models(golden_pairs: List[Dict]) -> Dict:
     
     for idx, pair in enumerate(golden_pairs, 1):
         query = pair['query']
-        golden = pair['golden_response']
+        golden = pair.get('golden_response') or pair.get('response')  # Support both key names
         
         print(f"\n{'='*80}")
         print(f"Question {idx}/{total}")
@@ -521,12 +521,15 @@ def save_results(evaluation_results: Dict):
     csv_file = f"golden_evaluation_{timestamp}.csv"
     with open(csv_file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
+        
+        # Header row
         writer.writerow([
             'Question', 'Query', 'Winner',
             'Fast_Overall', 'Fast_Jaccard', 'Fast_Sequence', 'Fast_Style', 'Fast_Semantic', 'Fast_Time',
             'Thinking_Overall', 'Thinking_Jaccard', 'Thinking_Sequence', 'Thinking_Style', 'Thinking_Semantic', 'Thinking_Time'
         ])
         
+        # Data rows
         for result in evaluation_results['detailed_results']:
             writer.writerow([
                 result['question_num'],
@@ -545,6 +548,85 @@ def save_results(evaluation_results: Dict):
                 result['thinking_metrics']['semantic'] or '',
                 result['thinking_time']
             ])
+        
+        # Add empty row separator
+        writer.writerow([])
+        
+        # Add summary statistics rows
+        fast = evaluation_results['fast_model']
+        thinking = evaluation_results['thinking_model']
+        
+        writer.writerow(['SUMMARY STATISTICS'])
+        writer.writerow([])
+        
+        # Fast Model Averages
+        writer.writerow([
+            'FAST MODEL AVERAGES',
+            '',
+            '',
+            fast['avg_overall'],
+            fast['avg_jaccard'],
+            fast['avg_sequence'],
+            fast['avg_style'],
+            fast['avg_semantic'] if fast['avg_semantic'] is not None else '',
+            fast['avg_time']
+        ])
+        
+        # Thinking Model Averages
+        writer.writerow([
+            'THINKING MODEL AVERAGES',
+            '',
+            '',
+            thinking['avg_overall'],
+            thinking['avg_jaccard'],
+            thinking['avg_sequence'],
+            thinking['avg_style'],
+            thinking['avg_semantic'] if thinking['avg_semantic'] is not None else '',
+            thinking['avg_time']
+        ])
+        
+        writer.writerow([])
+        
+        # Standard Deviations
+        writer.writerow([
+            'STANDARD DEVIATION',
+            '',
+            'Fast',
+            fast['std_overall']
+        ])
+        writer.writerow([
+            '',
+            '',
+            'Thinking',
+            thinking['std_overall']
+        ])
+        
+        writer.writerow([])
+        
+        # Win counts
+        writer.writerow([
+            'WIN COUNTS',
+            '',
+            'Fast',
+            evaluation_results['win_counts']['fast']
+        ])
+        writer.writerow([
+            '',
+            '',
+            'Thinking',
+            evaluation_results['win_counts']['thinking']
+        ])
+        
+        writer.writerow([])
+        
+        # Overall winner
+        writer.writerow([
+            'OVERALL WINNER',
+            '',
+            evaluation_results['overall_winner'].upper(),
+            f"{evaluation_results['improvement_pct']:.1f}% improvement"
+        ])
+    
     print(f"📊 CSV export saved to: {csv_file}\n")
 
 
