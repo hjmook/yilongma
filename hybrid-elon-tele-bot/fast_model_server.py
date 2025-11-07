@@ -448,7 +448,7 @@ def predict():
         else:
             latency_breakdown['classification_ms'] = (time.time() - classification_start) * 1000
 
-        # Format prompt with RAG context (original style)
+        # Format prompt with RAG context (enhanced style matching elon-thinking)
         if not retrieved_chunks:
             messages = [
                 {"role": "system", "content": SYSTEM_MSG},
@@ -456,21 +456,37 @@ def predict():
                 {"role": "user", "content": user_input},
             ]
         else:
-            # Original style context formatting
-            context_block = "=== CURRENT FACTS (Use these in your response) ===\n\n"
-            for i, chunk in enumerate(retrieved_chunks, 1):
-                context_block += f"[SOURCE {i}]\n"
-                context_block += f"{chunk['text']}\n"
-                if chunk.get('date') != 'Unknown':
-                    context_block += f"Date: {chunk['date']}\n"
-                context_block += "\n"
-            context_block += "=== END CURRENT FACTS ===\n\n"
+            # Enhanced style context formatting (same as elon-thinking)
+            context_block = "═══════════════════════════════════════════════════\n"
+            context_block += "📰 CURRENT INFORMATION (from recent sources)\n"
+            context_block += "═══════════════════════════════════════════════════\n\n"
             
-            enhanced_system = f"""{SYSTEM_MSG}
+            for i, chunk in enumerate(retrieved_chunks, 1):
+                context_block += f"[{i}] {chunk['text']}\n"
+                if chunk.get('date') != 'Unknown':
+                    context_block += f"    📅 {chunk['date']}"
+                    # Add recency and relevance info for debugging
+                    if chunk.get('recency_score') is not None:
+                        context_block += f" (relevance: {chunk.get('relevance_score', 0):.2f}, recency: {chunk.get('recency_score', 0):.2f})"
+                    context_block += "\n"
+                if chunk.get('source') != 'Unknown':
+                    context_block += f"    🔗 {chunk['source']}\n"
+                context_block += "\n"
+            
+            context_block += "═══════════════════════════════════════════════════\n\n"
+            
+            instructions = """INSTRUCTIONS:
+1. Use the above information to inform your response as Elon Musk
+2. Respond naturally and maintain Elon's personality
+3. Integrate relevant facts seamlessly into your response
+4. Never mention using "retrieved information" or "sources"
+5. If the context doesn't help, respond normally as Elon would
+6. Be detailed, opinionated, and engaging
 
-{context_block}
-
-IMPORTANT: Use the facts above naturally in your response as Elon would, without mentioning you're using retrieved information."""
+CRITICAL: If your memory conflicts with the provided context, 
+ALWAYS trust the context and acknowledge any updates naturally."""
+            
+            enhanced_system = f"{SYSTEM_MSG}\n\n{context_block}\n{instructions}"
             
             messages = [
                 {"role": "system", "content": enhanced_system},
