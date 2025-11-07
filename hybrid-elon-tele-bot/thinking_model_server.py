@@ -595,7 +595,8 @@ def predict():
         
         if should_retrieve and retriever and retriever.is_available():
             try:
-                chunks, retrieval_latency = retriever.retrieve(final_query, n_results=3)
+                # chunks, retrieval_latency = retriever.retrieve(final_query, n_results=3)
+                chunks, retrieval_latency = retriever.retrieve(final_query, n_results=5)
                 if chunks:
                     logger.info(f"[Retrieval] Found {len(chunks)} chunks | Latency: {retrieval_latency:.0f}ms")
                     # Log chunk scores for debugging

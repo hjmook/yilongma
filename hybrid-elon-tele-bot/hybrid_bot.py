@@ -216,13 +216,15 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         f"⏳ Waiting for Elon to go home..."
     )
     
-    # End chat session if using thinking mode (for comprehensive logging)
-    if mode == "elon-thinking":
-        try:
-            import requests
+    # End chat session for comprehensive logging (both modes now support this)
+    try:
+        import requests
+        if mode == "elon-thinking":
             requests.post("http://localhost:5055/end_session", json={"user_id": user_id}, timeout=5)
-        except Exception as e:
-            logger.warning(f"Failed to end chat session: {e}")
+        elif mode == "elon-fast":
+            requests.post("http://localhost:5001/end_session", json={"user_id": user_id}, timeout=5)
+    except Exception as e:
+        logger.warning(f"Failed to end chat session: {e}")
     
     # Terminate started processes
     for key in ["server_proc", "analyzer_proc"]:
