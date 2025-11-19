@@ -344,4 +344,4 @@ if __name__ == "__main__":
     # Example queries
     loader.test_query("What is Elon Musk doing with the Department of Government Efficiency?")
     loader.test_query("What are the latest SpaceX Starship developments?")
-    loader.test_query("Tell me about Tesla's Cybertruck production")
+    loader.test_query("Who are Elon Musk's children")
