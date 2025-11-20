@@ -35,10 +35,17 @@ PORT = 6767
 
 
 # --------------------------
-# Device Setup
+# Device Setup (Optimized for RTX 4070 Ti)
 # --------------------------
 if torch.cuda.is_available():
     device = "cuda"
+    # Optimize CUDA settings for RTX 4070 Ti
+    torch.cuda.empty_cache()
+    torch.backends.cuda.matmul.allow_tf32 = True
+    torch.backends.cudnn.allow_tf32 = True
+    torch.backends.cudnn.benchmark = True
+    print(f"⚡ CUDA GPU detected: {torch.cuda.get_device_name(0)}")
+    print(f"   TF32 optimizations enabled")
 elif torch.backends.mps.is_available():
     device = "mps"
 else:
@@ -149,17 +156,20 @@ class QueryAnalyzer:
         on_mac = platform.system() == "Darwin"
 
         if has_gpu and not on_mac:
+            # Optimized for RTX 4070 Ti - use less VRAM for analyzer
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_use_double_quant=True,
                 bnb_4bit_quant_type="nf4",
                 bnb_4bit_compute_dtype=torch.float16,
             )
+            print("Loading analyzer with 4-bit quantization (memory-optimized)...")
             self.model = AutoModelForCausalLM.from_pretrained(
                 model_path,
                 quantization_config=bnb_config,
                 device_map="auto",
                 trust_remote_code=True,
+                max_memory={0: "3GB"},  # Limit analyzer to 3GB, leaving space for main model
             )
         else:
             self.model = AutoModelForCausalLM.from_pretrained(

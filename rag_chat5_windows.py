@@ -13,7 +13,20 @@ import time
 # Configuration
 # --------------------------
 BASE_MODEL_PATH = os.path.join("model", "Llama-3.2-3B-Instruct")
-PHASE1_ADAPTER_PATH = os.path.join("model", "final_combined_v11_phase_1_only")  # Loads only Phase 1
+
+ADAPTERS = {
+    "1": os.path.join("model", "final_combined_v1"),
+    "2": os.path.join("model", "final_combined_v2"),
+    "3": os.path.join("model", "final_combined_v3"),
+    "4": os.path.join("model", "final_combined_v4"),
+    "5": os.path.join("model", "final_combined_v5"),
+    "6": os.path.join("model", "final_combined_v6"),
+    "7": os.path.join("model", "final_combined_v7"),
+    "8": os.path.join("model", "final_combined_v8"),
+    "9": os.path.join("model", "final_combined_v9"),
+    "10": os.path.join("model", "final_combined_v10"),
+    "11": os.path.join("model", "final_combined_v11"),
+}
 
 SYSTEM_MSG = (
     "You are Elon Musk in a conversation with the user, willing to talk about ANYTHING in detail. You are NOT an AI assistant. "
@@ -29,16 +42,25 @@ if not os.path.exists(CHROMA_DB_PATH):
     CHROMA_DB_PATH = "./elon_chroma_db"
 
 # --------------------------
-# Device Setup
+# Device Setup (Windows-optimized for GTX 4070 Ti)
 # --------------------------
 if torch.cuda.is_available():
     device = "cuda"
-elif torch.backends.mps.is_available():
-    device = "mps"
+    # Optimize CUDA settings for RTX 4070 Ti
+    torch.cuda.empty_cache()
+    torch.backends.cuda.matmul.allow_tf32 = True  # Enable TF32 for better performance on Ampere/Ada GPUs
+    torch.backends.cudnn.allow_tf32 = True
+    torch.backends.cudnn.benchmark = True  # Auto-tune for your specific GPU
+    
+    print(f"⚡ CUDA detected: {torch.cuda.get_device_name(0)}")
+    print(f"   CUDA version: {torch.version.cuda}")
+    print(f"   Available VRAM: {torch.cuda.get_device_properties(0).total_memory / 1024**3:.1f} GB")
+    print(f"   TF32 enabled: Optimized for RTX 40-series")
 else:
     device = "cpu"
+    print(f"⚠️  No CUDA GPU detected, using CPU (will be slower)")
 
-print(f"âš¡ Using device: {device}")
+print(f"⚡ Using device: {device}")
 
 # --------------------------
 # Retriever
@@ -50,16 +72,16 @@ class Retriever:
         self.collection = None
         
         if not os.path.exists(chroma_path):
-            print(f"âš ï¸  ChromaDB path not found: {chroma_path}")
+            print(f"⚠️  ChromaDB path not found: {chroma_path}")
             print(f"   Expected location: {os.path.abspath(chroma_path)}")
             return
         
         try:
             self.client = chromadb.PersistentClient(path=chroma_path)
             self.collection = self.client.get_collection(name="elon_musk_knowledge")
-            print(f"âœ… RAG database loaded: {self.collection.count()} chunks available")
+            print(f"✅ RAG database loaded: {self.collection.count()} chunks available")
         except Exception as e:
-            print(f"âš ï¸  Warning: Could not load RAG database: {e}")
+            print(f"⚠️  Warning: Could not load RAG database: {e}")
             self.collection = None
     
     def is_available(self) -> bool:
@@ -91,7 +113,7 @@ class Retriever:
             return formatted, latency
         
         except Exception as e:
-            print(f"âš ï¸  Retrieval error: {e}")
+            print(f"⚠️  Retrieval error: {e}")
             return [], 0.0
     
     def _format_results(self, results: Dict) -> List[Dict]:
@@ -137,10 +159,10 @@ class Retriever:
         return sorted(chunks, key=lambda x: x['score'], reverse=True)
 
 # --------------------------
-# Phase 1 Only System
+# Unified Dual-Model System (Windows-optimized)
 # --------------------------
-class Phase1System:
-    """System using ONLY Phase 1 adapter (identity layer)"""
+class DualModelSystem:
+    """Unified system with shared base model for both query analysis and response generation"""
     
     ANALYSIS_PROMPT_TEMPLATE = """You are a query analysis assistant for Elon Musk.
 
@@ -148,13 +170,13 @@ Your job: Decide if a query needs factual information retrieval from a knowledge
 
 Guidelines (EVEN IF TONE IS INFORMAL AND CONVERSATIONAL):
 - Questions/Remarks about nouns related to Elon Musk (like SpaceX, Tesla, The Boring Company, DOGE, Grok, Trump) -> RETRIEVE
-- Factual questions (what/when/how many/latest/recent/status) â†' RETRIEVE
-- Follow-up questions with pronouns (it/that/there/he) â†' RETRIEVE (resolve pronouns using context)
-- Questions about specific events, numbers, dates â†' RETRIEVE
-- Ambiguous terms (like "DOGE" could be Dogecoin or Dept of Govt Efficiency) â†' RETRIEVE (disambiguate)
+- Factual questions (what/when/how many/latest/recent/status) → RETRIEVE
+- Follow-up questions with pronouns (it/that/there/he) → RETRIEVE (resolve pronouns using context)
+- Questions about specific events, numbers, dates → RETRIEVE
+- Ambiguous terms (like "DOGE" could be Dogecoin or Dept of Govt Efficiency) → RETRIEVE (disambiguate)
 - Questions about personal life -> RETRIEVE
-- Greetings â†' NO_RETRIEVE
-- Personal philosophy about motivations â†' NO_RETRIEVE  
+- Greetings → NO_RETRIEVE
+- Personal philosophy about motivations → NO_RETRIEVE  
 
 
 Output format (IMPORTANT - follow exactly):
@@ -215,9 +237,9 @@ User: "{query}"
 Output:"""
 
     def __init__(self, base_model_path: str, adapter_path: str, system_msg: str):
-        """Load base model + Phase 1 adapter only"""
+        """Load base model once and create both base and fine-tuned versions"""
         
-        print(f"ðŸš€ Loading Phase 1 Only System...\n")
+        print(f"🚀 Loading Unified Dual-Model System...\n")
         
         self.system_msg = system_msg
         self.tokenizer = AutoTokenizer.from_pretrained(base_model_path)
@@ -225,11 +247,11 @@ Output:"""
         self.tokenizer.padding_side = "right"
         
         has_gpu = torch.cuda.is_available()
-        on_mac = platform.system() == "Darwin"
         
-        # Load base model
-        print(f"¦ Loading base model...")
-        if has_gpu and not on_mac:
+        # Load base model ONCE (Windows-optimized)
+        print(f"📦 Loading base model...")
+        if has_gpu:
+            # Use 4-bit quantization for GPU (saves VRAM on Windows)
             bnb_config = BitsAndBytesConfig(
                 load_in_4bit=True,
                 bnb_4bit_use_double_quant=True,
@@ -243,37 +265,35 @@ Output:"""
                 trust_remote_code=True
             )
         else:
+            # CPU fallback
             base_model = AutoModelForCausalLM.from_pretrained(
                 base_model_path,
                 device_map={"": device},
-                torch_dtype=torch.float16 if has_gpu or on_mac else torch.float32,
-                low_cpu_mem_usage=False,
+                torch_dtype=torch.float32,
+                low_cpu_mem_usage=True,
                 trust_remote_code=True
             )
         
-        print(f"âœ… Base model loaded\n")
+        print(f"✅ Base model loaded\n")
         
-        # Load ONLY Phase 1 adapter
-        print(f"ðŸ§  Loading Phase 1 adapter (identity layer, r=8)...")
-        self.model = PeftModel.from_pretrained(
+        # Store base model for query analysis
+        self.base_model = base_model
+        self.base_model.eval()
+        
+        # Load fine-tuned model using same base
+        print(f"🧠 Loading fine-tuned adapter...")
+        self.finetuned_model = PeftModel.from_pretrained(
             base_model,
             adapter_path,
-            is_trainable=False
+            offload_folder=None,
+            offload_index=None
         )
-        self.model.eval()
-        print(f"âœ… Phase 1 adapter loaded\n")
-        
-        # For compatibility with dual-model interface
-        self.base_model = self.model
-        self.finetuned_model = self.model
-        
-        # Set memory management for MPS
-        if device == "mps":
-            torch.mps.set_per_process_memory_fraction(0.0)
+        self.finetuned_model.eval()
+        print(f"✅ Fine-tuned model loaded\n")
     
     def analyze_query(self, query: str, chat_history: List[Dict]) -> Tuple[bool, str, str, float]:
         """
-        Analyze query using Phase 1 model to decide if retrieval needed.
+        Analyze query using BASE model to decide if retrieval needed.
         
         Returns:
             (should_retrieve, final_query, raw_output, latency_ms)
@@ -284,11 +304,11 @@ Output:"""
         history_str = self._format_history(chat_history)
         prompt = self.ANALYSIS_PROMPT_TEMPLATE.format(history=history_str, query=query)
         
-        # Generate analysis
+        # Generate analysis using BASE MODEL
         inputs = self.tokenizer(prompt, return_tensors="pt", truncation=True, max_length=2048).to(device)
         
         with torch.inference_mode():
-            output = self.model.generate(
+            output = self.base_model.generate(
                 **inputs,
                 max_new_tokens=100,
                 temperature=0.3,
@@ -317,7 +337,7 @@ Output:"""
         use_citations: bool = True
     ) -> Tuple[str, float]:
         """
-        Generate response using Phase 1 model as Elon.
+        Generate response using FINE-TUNED model as Elon.
         
         Returns:
             (response, latency_ms)
@@ -327,19 +347,20 @@ Output:"""
         # Format prompt with context
         messages = self._format_prompt(query, chat_history, chunks, use_citations)
         
-        # Generate
+        # Generate using FINE-TUNED MODEL
         text = self.tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
         inputs = self.tokenizer(text, return_tensors="pt").to(device)
         
+        # Use automatic mixed precision for CUDA
         if device == "cuda":
-            autocast_context = torch.amp.autocast("cuda",dtype=torch.float16)
+            autocast_context = torch.amp.autocast('cuda',dtype=torch.float16)
         else:
             from contextlib import nullcontext
             autocast_context = nullcontext()
         
         with autocast_context:
             with torch.inference_mode():
-                output = self.model.generate(
+                output = self.finetuned_model.generate(
                     **inputs,
                     max_new_tokens=200,
                     temperature=0.7,
@@ -414,17 +435,17 @@ Output:"""
             ]
         
         # Build context block
-        context_block = "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n"
-        context_block += "ðŸ CURRENT INFORMATION (from recent sources)\n"
-        context_block += "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n\n"
+        context_block = "═══════════════════════════════════════════════════\n"
+        context_block += "📰 CURRENT INFORMATION (from recent sources)\n"
+        context_block += "═══════════════════════════════════════════════════\n\n"
         
         for i, chunk in enumerate(chunks, 1):
             context_block += f"[{i}] {chunk['text']}\n"
             if chunk.get('date') != 'Unknown':
-                context_block += f"    ðŸ {chunk['date']}\n"
+                context_block += f"    📅 {chunk['date']}\n"
             context_block += "\n"
         
-        context_block += "â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n\n"
+        context_block += "═══════════════════════════════════════════════════\n\n"
         
         if use_citations:
             instructions = """INSTRUCTIONS:
@@ -455,14 +476,14 @@ Example: "Yeah, I was involved with DOGE [1], but that wrapped up earlier this y
 # Main Conversation Loop
 # --------------------------
 def start_conversation(
-    system: Phase1System,
+    dual_system: DualModelSystem,
     retriever: Retriever,
     use_rag: bool = True,
     use_citations: bool = True,
     enable_logging: bool = True
 ):
     print("\n" + "="*70)
-    print("ðŸ'¬ Phase 1 Only Elon Musk Chatbot" + (" (RAG Enhanced)" if use_rag else ""))
+    print("💬 Dual-Model Elon Musk Chatbot" + (" (RAG Enhanced)" if use_rag else ""))
     print("="*70)
     print("Commands:")
     print("  'exit' / 'quit'     - End conversation")
@@ -482,7 +503,7 @@ def start_conversation(
     logging_enabled = enable_logging
     
     if use_rag and not retriever.is_available():
-        print("âš ï¸  RAG database not available. Continuing without RAG.\n")
+        print("⚠️  RAG database not available. Continuing without RAG.\n")
         rag_enabled = False
     
     while True:
@@ -490,31 +511,31 @@ def start_conversation(
         
         if user_input.lower() in ["exit", "quit"]:
             if logging_enabled and logs:
-                log_file = f"phase1_chat_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+                log_file = f"chat_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
                 with open(log_file, 'w') as f:
                     json.dump(logs, f, indent=2)
-                print(f"\nðŸ'¾ Chat log saved to {log_file}")
-            print("\nðŸ'‹ Goodbye!")
+                print(f"\n💾 Chat log saved to {log_file}")
+            print("\n👋 Goodbye!")
             break
         
         if user_input.lower() == "toggle rag":
             rag_enabled = not rag_enabled
-            print(f"\n{'âœ…' if rag_enabled else 'âŒ'} RAG is now {'ON' if rag_enabled else 'OFF'}\n")
+            print(f"\n{'✅' if rag_enabled else '❌'} RAG is now {'ON' if rag_enabled else 'OFF'}\n")
             continue
         
         if user_input.lower() == "toggle citations":
             citations_enabled = not citations_enabled
-            print(f"\n{'âœ…' if citations_enabled else 'âŒ'} Citations are now {'ON' if citations_enabled else 'OFF'}\n")
+            print(f"\n{'✅' if citations_enabled else '❌'} Citations are now {'ON' if citations_enabled else 'OFF'}\n")
             continue
         
         if user_input.lower() == "toggle logging":
             logging_enabled = not logging_enabled
-            print(f"\n{'âœ…' if logging_enabled else 'âŒ'} Logging is now {'ON' if logging_enabled else 'OFF'}\n")
+            print(f"\n{'✅' if logging_enabled else '❌'} Logging is now {'ON' if logging_enabled else 'OFF'}\n")
             continue
         
         if user_input.lower() == "clear":
             chat_history = []
-            print("\nðŸ—'ï¸  Conversation history cleared\n")
+            print("\n🗑️  Conversation history cleared\n")
             continue
         
         if user_input.lower() == "info":
@@ -545,7 +566,7 @@ def start_conversation(
         
         # Step 1: Query Analysis
         if rag_enabled:
-            should_retrieve, final_query, raw_output, analysis_latency = system.analyze_query(
+            should_retrieve, final_query, raw_output, analysis_latency = dual_system.analyze_query(
                 user_input, 
                 chat_history
             )
@@ -572,7 +593,7 @@ def start_conversation(
                 print(f"[No chunks found | {retrieval_latency:.0f}ms]")
         
         # Step 3: Generate response
-        response, generation_latency = system.generate_response(
+        response, generation_latency = dual_system.generate_response(
             user_input,
             chat_history,
             chunks if chunks else None,
@@ -630,13 +651,21 @@ def start_conversation(
 # --------------------------
 if __name__ == "__main__":
     print("\n" + "="*70)
-    print("PHASE 1 ONLY ELON MUSK CHATBOT (IDENTITY LAYER TEST)")
+    print("DUAL-MODEL CONVERSATIONAL ELON MUSK CHATBOT (Windows Edition)")
     print("="*70)
-    print("\nThis version uses ONLY the Phase 1 adapter (r=8, identity learning)")
-    print("to test identity consistency without pattern refinement.\n")
+    
+    # Select model version
+    print("\nSelect fine-tuned model version:")
+    for i in range(1, 12):
+        print(f"{i:2d}. Version {i} (final_combined_v{i})")
+    
+    choice = input("\nEnter version number [1-11]: ").strip()
+    if choice not in ADAPTERS:
+        print("⚠️  Invalid choice, defaulting to version 11.")
+        choice = "11"
     
     # Select RAG mode
-    print("Use RAG (knowledge base)?")
+    print("\nUse RAG (knowledge base)?")
     print("1. Yes (recommended)")
     print("2. No (personality only)")
     
@@ -662,18 +691,22 @@ if __name__ == "__main__":
     logging_choice = input("\nEnter choice [1/2]: ").strip()
     enable_logging = logging_choice != "2"
     
-    # Load Retriever
-    retriever = Retriever(CHROMA_DB_PATH)
+    adapter_path = ADAPTERS[choice]
     
-    # Load Phase 1 Only System
-    phase1_system = Phase1System(BASE_MODEL_PATH, PHASE1_ADAPTER_PATH, SYSTEM_MSG)
+    # Load Retriever first (lightweight)
+    retriever = Retriever(CHROMA_DB_PATH) if use_rag else Retriever(CHROMA_DB_PATH)
+    
+    # Load Unified Dual-Model System (loads base model only once)
+    dual_system = DualModelSystem(BASE_MODEL_PATH, adapter_path, SYSTEM_MSG)
     
     print("\n" + "="*70)
-    print("âœ… PHASE 1 ONLY SYSTEM READY")
+    print("✅ ALL SYSTEMS READY")
     print("="*70)
-    print(f"Architecture: Base model + Phase 1 adapter only")
-    print(f"LoRA Configuration: r=8, alpha=16 (identity layer)")
-    print(f"Purpose: Testing identity consistency without refinement")
+    print(f"Platform: Windows")
+    print(f"Device: {device.upper()}")
+    print(f"Architecture: Unified dual-model system (shared base)")
+    print(f"Query Analyzer: Base Llama 3.2 3B Instruct")
+    print(f"Response Generator: Fine-tuned version {choice}")
     print(f"RAG: {'Enabled' if use_rag else 'Disabled'}")
     print(f"Citations: {'Enabled' if use_citations else 'Disabled'}")
     print(f"Logging: {'Enabled' if enable_logging else 'Disabled'}")
@@ -681,7 +714,7 @@ if __name__ == "__main__":
     
     # Start conversation
     start_conversation(
-        system=phase1_system,
+        dual_system=dual_system,
         retriever=retriever,
         use_rag=use_rag,
         use_citations=use_citations,

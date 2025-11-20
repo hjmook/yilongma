@@ -28,6 +28,25 @@ CHOOSE_MODE = 1
 
 client = HybridModelClient()
 
+# Ping command to check if the current model server is online
+import requests as _requests
+async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    endpoint = getattr(client, 'endpoint', None) or os.environ.get("HYBRID_MODEL_URL")
+    if not endpoint:
+        await update.message.reply_text("❌ No model server endpoint configured.")
+        return
+    # Try to get the /health endpoint
+    health_url = endpoint.replace("/predict", "/health")
+    try:
+        r = _requests.get(health_url, timeout=5)
+        if r.status_code == 200:
+            data = r.json()
+            status = data.get("status", "unknown")
+            await update.message.reply_text(f"✅ Server is online! Status: {status}")
+        else:
+            await update.message.reply_text(f"⚠️ Server responded with status code {r.status_code}")
+    except Exception as e:
+        await update.message.reply_text(f"❌ Server is offline or unreachable.\nError: {e}")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # If already in an active session (mode selected and ready), ignore /start
@@ -40,7 +59,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     # Welcome message
     welcome_msg = (
-        "Hello! I'm Elon Musk (well, a chatbot version 😄)\n\n"
+        "Hello! I'm Elon Musk (well, a chatbot version)\n\n"
         "Ask me anything about:\n"
         "• Tesla, SpaceX, Neuralink, X (Twitter)\n"
         "• Technology, AI, space exploration\n"
@@ -99,26 +118,61 @@ async def choose_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         # Start analyzer then thinking server
         import subprocess, time, requests
+        logger.info("Starting analyzer service...")
         analyzer = subprocess.Popen([sys.executable, os.path.join(os.path.dirname(__file__), "analyzer_service.py")])
-        for _ in range(180):
+        analyzer_ready = False
+        for i in range(180):
             try:
                 r = requests.get("http://localhost:6767/health", timeout=2)
                 if r.status_code == 200:
+                    logger.info(f"Analyzer ready after {i+1} seconds")
+                    analyzer_ready = True
                     break
-            except Exception:
-                pass
+            except Exception as e:
+                if i % 10 == 0:  # Log every 10 seconds
+                    logger.info(f"Waiting for analyzer... ({i}s)")
             time.sleep(1)
+        
+        if not analyzer_ready:
+            logger.error("Analyzer failed to start!")
+            await waiting_msg.edit_text("❌ Analyzer failed to start. Please try again.")
+            analyzer.terminate()
+            context.user_data["is_setting_up"] = False
+            return ConversationHandler.END
+        
+        logger.info("Starting thinking model server...")
+        await waiting_msg.edit_text("⏳ Analyzer ready! Loading thinking model (this takes 30-60 seconds)...")
         server = subprocess.Popen([sys.executable, os.path.join(os.path.dirname(__file__), "thinking_model_server.py")])
         context.chat_data["analyzer_proc"] = analyzer
         context.chat_data["server_proc"] = server
-        for _ in range(240):
+        
+        server_ready = False
+        for i in range(240):
+            logger.info(f"[Loop {i}] Checking health...")
             try:
-                r = requests.get("http://localhost:5055/health", timeout=2)
-                if r.status_code == 200 and r.json().get("ready"):
-                    break
-            except Exception:
-                pass
+                r = requests.get("http://localhost:5055/health", timeout=10)  # Increased from 2 to 10 seconds
+                logger.info(f"[Loop {i}] Got response: {r.status_code}")
+                if r.status_code == 200:
+                    health_data = r.json()
+                    logger.info(f"[Loop {i}] Health: ready={health_data.get('ready')}, status={health_data.get('status')}")
+                    if health_data.get("ready"):
+                        logger.info(f"✅ Thinking server ready after {i+1} checks!")
+                        server_ready = True
+                        break
+            except requests.exceptions.ConnectionError as e:
+                logger.info(f"[Loop {i}] ConnectionError - server not started yet")
+            except Exception as e:
+                logger.warning(f"[Loop {i}] Unexpected error: {type(e).__name__}: {e}")
             time.sleep(1)
+        
+        if not server_ready:
+            logger.error("Thinking server failed to become ready!")
+            await waiting_msg.edit_text("❌ Thinking server failed. Try 'elon-fast' instead or restart.")
+            analyzer.terminate()
+            server.terminate()
+            context.user_data["is_setting_up"] = False
+            return ConversationHandler.END
+        
         os.environ["HYBRID_MODEL_URL"] = "http://localhost:5055/predict"
         client.set_endpoint("http://localhost:5055/predict")
 
@@ -274,6 +328,7 @@ def main():
     application.add_handler(CommandHandler("reset", reset_chat))
     application.add_handler(CommandHandler("stop", stop))
     application.add_handler(CommandHandler("health", health))
+    application.add_handler(CommandHandler("ping", ping))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 

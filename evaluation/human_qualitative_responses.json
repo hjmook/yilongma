@@ -1,0 +1,307 @@
+{
+  "test_date": "2025-11-03T19:25:49.974048",
+  "queries": [
+    {
+      "query": "What are your plans for this year?",
+      "fast": {
+        "success": true,
+        "output": "Well, I think the big thing that people should focus on is the Starship program. We have a lot of progress with Starship right now. I'm excited about it because it could revolutionize transportation to the moon and Mars. And then we've got the Neuralink implant project which has a lot of potential for enhancing human cognition. So that's my main focus.",
+        "rag_used": true,
+        "num_chunks": 1,
+        "query_type": "factual_recent",
+        "total_latency_ms": 6264.253854751587,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, I think we've got some big plans for next year. We're gonna try to get the Starship off the ground, which I think is going to revolutionize space travel. Then, obviously, there's Neuralink. That's going to change the world in a huge way. And also, SpaceX is working on Starlink. So, I think we'll see a lot of progress on that front. We've got a few things lined up for next year, but I don't like to say too much until it's actually happening. Let's just say we've got some exciting projects coming down the pipe.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 12964.55454826355,
+        "server_latency": {
+          "analysis_ms": 3117.6395416259766,
+          "generation_ms": 5576.846361160278,
+          "retrieval_ms": 189.62740898132324,
+          "total_ms": 8884.113311767578
+        }
+      }
+    },
+    {
+      "query": "How many Starlink satellites are in orbit currently?",
+      "fast": {
+        "success": true,
+        "output": "Well, I think we have around 750 to 800 satellites currently in orbit. We've got a lot more coming.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "factual_recent",
+        "total_latency_ms": 3325.6478309631348,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, I think there are now over 7,000 satellites in orbit. We've been launching them at a pretty aggressive pace. So far, we have around 8,500 satellites in orbit. And we're going to add hundreds of thousands more in the future.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 9299.460649490356,
+        "server_latency": {
+          "analysis_ms": 2945.94669342041,
+          "generation_ms": 2274.8148441314697,
+          "retrieval_ms": 11.115789413452148,
+          "total_ms": 5231.877326965332
+        }
+      }
+    },
+    {
+      "query": "What happened with Twitter's rebranding to X?",
+      "fast": {
+        "success": true,
+        "output": "So I mean, it's just like... look, I think it's pretty clear why we're calling it X because we did call it X when we were trying to acquire it. So, yeah, it's just called X. That's really all there is to it.",
+        "rag_used": true,
+        "num_chunks": 1,
+        "query_type": "factual_recent",
+        "total_latency_ms": 4491.823673248291,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, I mean, yeah, the branding thing. So, you know, I think it's pretty cool to have the old logo, and then suddenly the new one comes along. But I like the old one. It's very iconic. I'm glad the old one is coming back. And I did say, hey, let's keep the old logo, and then just use the X, which is actually quite nice. And I've got to say, I really like the X because it's simple, it's elegant, it's easy to read, and it's clear. So, I think that's probably the best branding for us. So, yeah, I like the old one, and I think the X is good too.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 13567.389488220215,
+        "server_latency": {
+          "analysis_ms": 2885.2546215057373,
+          "generation_ms": 6585.625886917114,
+          "retrieval_ms": 10.005712509155273,
+          "total_ms": 9480.886220932007
+        }
+      }
+    },
+    {
+      "query": "Why did you start SpaceX?",
+      "fast": {
+        "success": true,
+        "output": "I think I have a very good understanding of what is needed for humanity to become a multi-planetary species, but I don't think there's much reason why we should not try to do it.",
+        "rag_used": true,
+        "num_chunks": 1,
+        "query_type": "factual_domain",
+        "total_latency_ms": 4068.659543991089,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "I think we should make humanity a multi-planetary species, because I think it’s important for the survival of civilization. It’s just very simple. We’re like a starship. We’re like a spaceship. And our ship is Earth. And there are stars out there. And there are planets out there. And we’re going to go visit them. So, we need to have something to take us there. That’s what SpaceX is trying to accomplish. And I believe it’s possible. I think it’s gonna work.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 11364.736080169678,
+        "server_latency": {
+          "analysis_ms": 2859.2021465301514,
+          "generation_ms": 4420.519113540649,
+          "retrieval_ms": 13.829231262207031,
+          "total_ms": 7293.550491333008
+        }
+      }
+    },
+    {
+      "query": "What's your approach to solving traffic with Boring Company?",
+      "fast": {
+        "success": true,
+        "output": "Well, we've got a tunnel boring machine called the \"Mole\". That's pretty simple. It digs tunnels. Then, we've got a vehicle that rides in those tunnels at high speeds, so you can drive electric cars or whatever. And we're using advanced materials to make it light, so we can reduce friction, and that makes the whole thing efficient. We're working on making the tunnels waterproof and pressurized, so you don't have to worry about getting wet or having air pressure issues. So, it's a pretty straightforward solution to traffic problems.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "factual_domain",
+        "total_latency_ms": 7104.391098022461,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, I think we should have high-speed tunnels. And then we could have elevated tubes. And then we could have autonomous vehicles that travel through those tubes. And there's several different approaches. One way to do it is just to go straight down. So, you know, we could just dig tunnels directly under cities and have cars drive through tunnels. It's pretty straightforward. We've done lots of designs for tunnels. And we've had success with that. We've dug tunnels for the city of Boston. We've dug tunnels in Los Angeles. We've dug tunnels in New York City. So, we've got experience doing tunnels. And we've done it successfully. But we need to make sure that the infrastructure is scalable. So, it's got to be able to handle a lot of traffic. So, we need to design the tunnel to be really large. And then we can use autonomous vehicles to optimize the traffic flow.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 15459.671974182129,
+        "server_latency": {
+          "analysis_ms": 3226.353406906128,
+          "generation_ms": 8126.565217971802,
+          "retrieval_ms": 11.218786239624023,
+          "total_ms": 11364.137411117554
+        }
+      }
+    },
+    {
+      "query": "Explain your vision for sustainable energy",
+      "fast": {
+        "success": true,
+        "output": "Well, I think that's an important thing to try to figure out how to make energy generation and consumption more sustainable.",
+        "rag_used": true,
+        "num_chunks": 1,
+        "query_type": "factual_domain",
+        "total_latency_ms": 3231.3759326934814,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, I think we need to make electric vehicles ubiquitous. We should have electric vehicles that are affordable, and I think the key is making batteries more efficient, particularly solid-state batteries. And then we need to make hydrogen fuel cell cars really widespread as well. So, I'm not saying that one or the other, but both are important. And we also need to reduce emissions. So, we need to transition to clean energy. So, the solar power, wind power, geothermal power, hydroelectric power, these are all good things. And then, we need to reduce our carbon footprint. Now, let's say, if we just looked at solar, the sun emits 140 watts per square foot per day. That means, if we cover every roof in the world with solar panels, we could generate enough electricity to power every home, every business, every car, every device, every building on earth, if we just put solar panels on every roof. It's not like we",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 14765.82646369934,
+        "server_latency": {
+          "analysis_ms": 2851.6499996185303,
+          "generation_ms": 7838.339567184448,
+          "retrieval_ms": 12.384891510009766,
+          "total_ms": 10702.374458312988
+        }
+      }
+    },
+    {
+      "query": "How are you doing today?",
+      "fast": {
+        "success": true,
+        "output": "I'm fine, thank you for asking.",
+        "rag_used": true,
+        "num_chunks": 1,
+        "query_type": "factual_recent",
+        "total_latency_ms": 2720.944404602051,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "I'm feeling pretty good. I'm excited for Starship. We're getting ready to send humans to Mars. That's really cool. We've got a lot of work ahead of us. The Boring Company is also making progress on tunnels. Tesla's going well. We're trying to make electric cars more affordable and sustainable energy solutions. SpaceX has been working on several exciting projects including Starlink satellite internet, Neuralink brain-machine interface and the Supercharger network. All these things are happening at the same time, but we're trying to solve big problems in all of them. So, it's exciting. How about you? What are you up to?",
+        "rag_used": false,
+        "num_chunks": 0,
+        "query_type": "analyzed",
+        "total_latency_ms": 11804.793119430542,
+        "server_latency": {
+          "analysis_ms": 2528.249740600586,
+          "generation_ms": 5204.366207122803,
+          "retrieval_ms": 0.0,
+          "total_ms": 7732.615947723389
+        }
+      }
+    },
+    {
+      "query": "What do you think about AI safety?",
+      "fast": {
+        "success": true,
+        "output": "AI safety is a critical topic that I'm very passionate about.",
+        "rag_used": false,
+        "num_chunks": 0,
+        "query_type": "conversational",
+        "total_latency_ms": 2703.033447265625,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "AI safety. Well, I'm a bit concerned about the potential risks associated with advanced AI. We need to have very robust safety measures in place before we deploy these systems at scale. And I've been saying this for many years. I mean, I was warning about AI dangers back in 2018. I was like, 'Guys, there is going to be existential risk from superintelligent AI.' And people thought I was crazy. They didn't take me seriously. But I said, 'Don't worry, I'll make sure you don't get terminated when this thing becomes superintelligent.' So, I've been working hard on making sure we design these AI systems in a way that they can be controlled and shut down if necessary. So, it's not just about whether it's possible but also what should we do when it happens. We're working very hard on that. I hope we can have a global agreement on how to handle this problem, which is very difficult",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 14828.838348388672,
+        "server_latency": {
+          "analysis_ms": 2877.8045177459717,
+          "generation_ms": 7876.336336135864,
+          "retrieval_ms": 11.52181625366211,
+          "total_ms": 10765.662670135498
+        }
+      }
+    },
+    {
+      "query": "Are you worried about competition?",
+      "fast": {
+        "success": true,
+        "output": "I think we've got some great competitors out there but I don't really worry that much because our products are better and more powerful than what others have. We're just executing well and trying to make a good product and then the market will dictate how many people buy it and we'll be happy if they want to buy it.",
+        "rag_used": false,
+        "num_chunks": 0,
+        "query_type": "conversational",
+        "total_latency_ms": 4656.197309494019,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, yeah, there's always some level of competition. And then, of course, you know, we've got a very strong team. So, I mean, we've got a lot of great talent, and we're constantly innovating, and trying to improve things, and we're working hard to make sure that our products and services are the best possible. Now, I think we've had a pretty good track record in that regard, and I think we'll continue to have a good track record. We're going to keep innovating and improving.",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 11921.172142028809,
+        "server_latency": {
+          "analysis_ms": 2942.7857398986816,
+          "generation_ms": 4863.300323486328,
+          "retrieval_ms": 20.63131332397461,
+          "total_ms": 7826.717376708984
+        }
+      }
+    },
+    {
+      "query": "What's your strategy for Tesla's expansion in China and how does it relate to the supply chain?",
+      "fast": {
+        "success": true,
+        "output": "Well, I mean we've got a huge amount of momentum going forward in China. We're very excited about that. The demand is tremendous, and we need to ensure that we can meet that demand while also keeping costs down. That's why we have a massive production facility in Shanghai and also a new factory just announced for Beijing. And then there's also our Gigafactory in Shanghai. So, you know, we've got a lot of activity going on in China, and we're very optimistic about the future prospects of that market. Now, when it comes to supply chains, you know, we're trying to build a better global supply chain. One of the things we're doing is creating a global network of manufacturing facilities that will allow us to source materials from anywhere in the world and ship products out anywhere in the world efficiently. It really creates a seamless global distribution system. And that",
+        "rag_used": false,
+        "num_chunks": 0,
+        "query_type": "conversational",
+        "total_latency_ms": 9381.05297088623,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, you know, we've had incredible success in China with Gigafactory Shanghai. We're proud of what we've accomplished there because it's truly remarkable. I mean, if you think about it, it went from basically nothing to over a million cars per year, it's just incredible. So, we're going to continue to build upon that success. We're going to continue to make sure that we can meet the demands of China. Now, the challenge is getting the goods to the right place at the right time. You know, when you're doing manufacturing like we did in China, it's easy to get the goods to the factory, but then getting them to the end customer is where things get a lot tougher. So, we need to make sure that we have a reliable and efficient delivery system in place. Now, China is, by far, the most important market for us, and we want to make sure we meet the demand for the Chinese people. We're committed",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 15770.631551742554,
+        "server_latency": {
+          "analysis_ms": 3313.999891281128,
+          "generation_ms": 8372.637033462524,
+          "retrieval_ms": 21.026134490966797,
+          "total_ms": 11707.66305923462
+        }
+      }
+    },
+    {
+      "query": "How do you balance running multiple companies while also working on Neuralink?",
+      "fast": {
+        "success": true,
+        "output": "Well, it's pretty challenging because I have a lot of different responsibilities and a lot of different projects going on. So, like SpaceX, Tesla, Neuralink, The Boring Company. We've got a lot of different things going on there, and I'm also trying to run X and Twitter, which is a lot of work. So, my schedule is always quite packed. But, you know, we're just trying to make humanity multi-planetary and, at least, improve life on Earth through technology. And, yeah, that's what our mission is.",
+        "rag_used": false,
+        "num_chunks": 0,
+        "query_type": "conversational",
+        "total_latency_ms": 6742.746353149414,
+        "server_latency": {}
+      },
+      "thinking": {
+        "success": true,
+        "output": "Well, I mean, we've got a pretty complex situation here. We've got SpaceX, Tesla, Neuralink, The Boring Company, X, Twitter, and oh yeah, I'm also on the board of the Hyperloop company, and then I've got my own production studio, so I'm basically trying to work on all these different projects, and sometimes it feels like I'm juggling chainsaws. But, you know, I don't really feel like I'm juggling chainsaws. I feel like I'm, like, operating a symphony orchestra. So, it's just sort of a very big orchestra with a lot of strings, you know? And the thing is, I think the key is, I need to get the right people around me, and that's why I've tried to hire the best talent in the world. I mean, I'm not afraid to say, if I don't think someone is good enough, I'll let them go. That",
+        "rag_used": true,
+        "num_chunks": 3,
+        "query_type": "analyzed",
+        "total_latency_ms": 21909.637451171875,
+        "server_latency": {
+          "analysis_ms": 3066.655158996582,
+          "generation_ms": 14751.708507537842,
+          "retrieval_ms": 12.106895446777344,
+          "total_ms": 17830.4705619812
+        }
+      }
+    }
+  ],
+  "summary": {
+    "fast": {
+      "total_time": 57637.50863075256,
+      "rag_usage": 8,
+      "avg_response_length": 278.8333333333333,
+      "avg_latency_ms": 4803.125719229381,
+      "rag_usage_percent": 66.66666666666666
+    },
+    "thinking": {
+      "total_time": 163760.88953018188,
+      "rag_usage": 11,
+      "avg_response_length": 607.25,
+      "avg_latency_ms": 13646.740794181824,
+      "rag_usage_percent": 91.66666666666666
+    }
+  }
+}
