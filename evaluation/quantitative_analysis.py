@@ -33,7 +33,7 @@ from difflib import SequenceMatcher
 # Configuration
 FAST_SERVER = "http://localhost:5001/predict"
 THINKING_SERVER = "http://localhost:5055/predict"
-GOLDEN_FILE = "golden.json"
+GOLDEN_FILE = "golden_question_bank.json"
 
 # ============================================================================
 # ELON-SPECIFIC LINGUISTIC MARKERS

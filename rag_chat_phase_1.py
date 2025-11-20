@@ -332,7 +332,7 @@ Output:"""
         inputs = self.tokenizer(text, return_tensors="pt").to(device)
         
         if device == "cuda":
-            autocast_context = torch.cuda.amp.autocast(dtype=torch.float16)
+            autocast_context = torch.amp.autocast("cuda",dtype=torch.float16)
         else:
             from contextlib import nullcontext
             autocast_context = nullcontext()

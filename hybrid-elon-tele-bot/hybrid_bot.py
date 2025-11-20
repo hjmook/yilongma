@@ -28,6 +28,25 @@ CHOOSE_MODE = 1
 
 client = HybridModelClient()
 
+# Ping command to check if the current model server is online
+import requests as _requests
+async def ping(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    endpoint = getattr(client, 'endpoint', None) or os.environ.get("HYBRID_MODEL_URL")
+    if not endpoint:
+        await update.message.reply_text("❌ No model server endpoint configured.")
+        return
+    # Try to get the /health endpoint
+    health_url = endpoint.replace("/predict", "/health")
+    try:
+        r = _requests.get(health_url, timeout=5)
+        if r.status_code == 200:
+            data = r.json()
+            status = data.get("status", "unknown")
+            await update.message.reply_text(f"✅ Server is online! Status: {status}")
+        else:
+            await update.message.reply_text(f"⚠️ Server responded with status code {r.status_code}")
+    except Exception as e:
+        await update.message.reply_text(f"❌ Server is offline or unreachable.\nError: {e}")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # If already in an active session (mode selected and ready), ignore /start
@@ -307,6 +326,7 @@ def main():
     application.add_handler(CommandHandler("reset", reset_chat))
     application.add_handler(CommandHandler("stop", stop))
     application.add_handler(CommandHandler("health", health))
+    application.add_handler(CommandHandler("ping", ping))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
